@@ -34,3 +34,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+======================================================================================
+
+## About functionality:
+
+This is a simple MVP app like e-commerse.
+
+There is a core functionality:
+- two identical pages with menu navigation
+- the page about each product info
+- the cart page with a calculating logic like update amount, delete, etc
+- information about the total sum
+- the green button about payment at the bottom of the cart page can be a redirect to the payment page with delivery and other conditions, I didn't do anything with it just created
+- remote API fetching for product list works with 'next js' server fetching
+- a product amount updates in the cart icon in the header
