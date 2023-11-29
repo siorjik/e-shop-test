@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation'
 
 import { ProductType } from '@/types/ProductTypes'
 import ProductList from '@/components/ProductList'
-import Layout from '@/components/Layout'
 
 async function getProducts(): Promise<ProductType[] | { error: Error }> {
   try {
@@ -21,17 +20,15 @@ async function getProducts(): Promise<ProductType[] | { error: Error }> {
   }
 }
 
-export default async function Main() {
+export default async function Products() {
   const products = await getProducts()
 
   if ('error' in products) notFound()
 
   return (
     <>
-      <Layout>
-        <h2 className='mb-10 text-2xl'>Home Page</h2>
-        {products && products.length && <ProductList data={products} />}
-      </Layout>
+      <h2 className='mb-10 text-2xl'>Products Page</h2>
+      {products && products.length && <ProductList data={products} />}
     </>
   )
 }
