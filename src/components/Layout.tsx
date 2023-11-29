@@ -39,7 +39,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Link key={item.id}
         className={`
         pb-5 px-3 mr-3 border-b-2 border-transparent font-semibold
-        ${pathname === item.path ? 'border-green-600' : 'hover:border-green-400'} transition-all
+        ${pathname === item.path ? '!border-green-600' : 'hover:border-green-400'} transition-all
       `}
         href={item.path}
       >{item.title}</Link>
@@ -68,7 +68,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             </nav>
           </div>
         </header>
-        
+
         <main className='mt-16'>
           <div className='min-h-[calc(100vh-128px)] px-8 py-10 bg-slate-50'>
             <div className='max-w-7xl mx-auto'>{children}</div>
