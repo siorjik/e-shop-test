@@ -48,8 +48,8 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <div className={`wrap grid md:grid-cols-1 h-screen overflow-auto scroll-smooth`} ref={mainRef}>
-        <header className='py-5 px-8 bg-green-200 text-lg fixed w-full'>
+      <div className={`wrap h-screen overflow-auto scroll-smooth`} ref={mainRef}>
+        <header className='py-5 px-8 bg-green-200 text-lg sticky top-0 w-full'>
           <div className='max-w-7xl mx-auto grid grid-cols-[100px_1fr]'>
             <Link className='hidden md:block' href={'/'}>Logo</Link>
             <nav className='flex justify-between'>
@@ -59,9 +59,9 @@ export default function Layout({ children }: { children: ReactNode }) {
                   <Image src={cartIcon} alt='cart' />
                   <span
                     className='
-                    absolute right-[-15px] bottom-3 w-[23px] h-[23px] leading-6 text-center text-xs
-                    text-slate-50 bg-orange-400 rounded-full
-                  '
+                      absolute right-[-15px] bottom-3 w-[23px] h-[23px] leading-6 text-center text-xs
+                      text-slate-50 bg-orange-400 rounded-full
+                    '
                   >{products.length}</span>
                 </Link>
               </div>
@@ -69,8 +69,8 @@ export default function Layout({ children }: { children: ReactNode }) {
           </div>
         </header>
 
-        <main className='mt-16'>
-          <div className='min-h-[calc(100vh-128px)] px-8 py-10 bg-slate-50'>
+        <main>
+          <div className='min-h-[calc(100vh-132px)] px-8 py-10 bg-slate-50'>
             <div className='max-w-7xl mx-auto'>{children}</div>
           </div>
           <footer className='h-70px py-5 px-8 bg-sky-200'><div className='max-w-7xl mx-auto'>Footer</div></footer>
