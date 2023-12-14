@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { ProductType } from '../types/ProductTypes'
-import cartIcon from '@/../public/cartIcon.svg'
+import cart from '@/../public/cart.svg'
 import Button from './Button'
 
 export default memo(function ProductCard({ data, func }: { data: ProductType, func: (data: ProductType) => void }) {
@@ -35,7 +35,7 @@ export default memo(function ProductCard({ data, func }: { data: ProductType, fu
           <Button
             style='cart-btn'
             click={() => func(data)}
-          ><Image src={cartIcon} alt='cart' /></Button>
+          ><Image src={cart} alt='cart' /></Button>
         </div>
       </div>
 

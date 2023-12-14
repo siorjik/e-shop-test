@@ -4,13 +4,13 @@ import Image from 'next/image'
 
 import { ProductType } from '@/types/ProductTypes'
 import useCartContext from '@/contexts/CartContext'
-import cartIcon from '@/../public/cartIcon.svg'
+import cart from '@/../public/cart.svg'
 import Button from './Button'
 
 export default function ProductInfo({ data }: { data: ProductType }) {
   const { image, title, description, price } = data
 
-  const { products, setContext } = useCartContext()
+  const { products, setOrder } = useCartContext()
 
   return (
     <div className='flex flex-col md:flex-row'>
@@ -24,8 +24,8 @@ export default function ProductInfo({ data }: { data: ProductType }) {
           <span className='text-2xl'>${price}</span>
           <Button
             style='px-5 py-3 rounded-lg bg-slate-200 hover:bg-slate-300 transition-all'
-            click={() => setContext({ products: [...products, data] })}
-          ><Image src={cartIcon} alt='cart' /></Button>
+            click={() => setOrder({ products: [...products, data] })}
+          ><Image src={cart} alt='cart' /></Button>
         </div>
       </div>
     </div>

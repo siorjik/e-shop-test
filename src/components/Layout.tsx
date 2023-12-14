@@ -1,23 +1,30 @@
 'use client'
 
-import { ReactNode, useEffect, useState, useRef } from 'react'
+import { ReactNode, useEffect, useState, useRef, ChangeEvent } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import Button from './Button'
 
-import cartIcon from '@/../public/cartIcon.svg'
+import cart from '@/../public/cart.svg'
+import burger from '@/../public/burger.svg'
+import up from '@/../public/up.svg'
+
 import useCartContext from '@/contexts/CartContext'
-import upIcon from '@/../public/upIcon.svg'
+import useProductContext from '@/contexts/ProductContext'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const [isShowBtn, setShowBtn] = useState(false)
+  const [isShowSidebar, setShowSidebar] = useState(false)
 
   const { products } = useCartContext()
+  const { setProduct } = useProductContext()
   const pathname = usePathname()
 
   const mainRef = useRef<HTMLDivElement>(null)
+  let timeoutRef: { current: NodeJS.Timeout | null } = useRef(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const div = mainRef.current!
@@ -33,14 +40,21 @@ export default function Layout({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    clearTimeout(timeoutRef.current as NodeJS.Timeout)
+
+    timeoutRef.current = setTimeout(() => setProduct({ filter: e.target.value.toLowerCase() }), 500)
+  }
+
   const navData = [{ id: 1, title: 'Home', path: '/' }, { id: 2, title: 'Products', path: '/products' }]
+
   const getMenu = () => {
     return navData.map(item => (
       <Link key={item.id}
         className={`
-        pb-5 px-3 mr-3 border-b-2 border-transparent font-semibold
-        ${pathname === item.path ? '!border-green-600' : 'hover:border-green-400'} transition-all
-      `}
+          pb-5 px-3 ml-3 border-b-2 border-transparent font-semibold
+          ${pathname === item.path ? '!border-green-600' : 'hover:border-green-400'} transition-all
+        `}
         href={item.path}
       >{item.title}</Link>
     ))
@@ -48,41 +62,75 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <div className={`wrap h-screen overflow-auto scroll-smooth`} ref={mainRef}>
-        <header className='py-5 px-8 bg-green-200 text-lg sticky top-0 w-full'>
-          <div className='max-w-7xl mx-auto grid grid-cols-[100px_1fr]'>
+      <div className={`wrap h-screen ${isShowSidebar ? 'overflow-hidden' : 'overflow-auto'} scroll-smooth`} ref={mainRef}>
+        <header className='py-5 px-8 bg-green-200 text-lg sticky top-0 w-full h-[68px] z-20'>
+          <div className='max-w-7xl mx-auto grid grid-cols-[25px_1fr_40px] gap-5 md:grid-cols-[70px_1fr_2fr_40px]'>
             <Link className='hidden md:block' href={'/'}>Logo</Link>
-            <nav className='flex justify-between'>
+            <nav className='hidden md:flex justify-between'>
               <menu>{getMenu()}</menu>
-              <div className='mr-3 flex absolute right-[30px] top-[22px] cursor-pointer md:relative md:right-0 md:top-0'>
-                <Link className='contents' href='/cart'>
-                  <Image src={cartIcon} alt='cart' />
-                  <span
-                    className='
-                      absolute right-[-15px] bottom-3 w-[23px] h-[23px] leading-6 text-center text-xs
-                      text-slate-50 bg-orange-400 rounded-full
-                    '
-                  >{products.length}</span>
-                </Link>
-              </div>
             </nav>
+            <button className='md:hidden' onClick={() => setShowSidebar(!isShowSidebar)}>
+              <Image src={burger} alt='cart' />
+            </button>
+            <div className='relative'>
+              <input
+                className='w-full pl-3 pr-8 py-1 rounded-md text-sm' ref={inputRef}
+                type="text" placeholder='Search by name...' onChange={handleChange}
+              />
+              <span className='absolute right-3 cursor-pointer'
+                onClick={() => {
+                  setProduct({ filter: '' })
+
+                  inputRef.current!.value = ''
+                }}
+              >x</span>
+            </div>
+            <div className='flex relative'>
+              <Link className='contents' href='/cart'>
+                <Image src={cart} alt='cart' />
+                <span
+                  className='
+                    absolute right-0  bottom-3 w-[23px] h-[23px] leading-6 text-center text-xs
+                    text-slate-50 bg-orange-400 rounded-full
+                  '
+                >{products.length}</span>
+              </Link>
+            </div>
           </div>
         </header>
 
-        <main>
+        <main className='relative z-10' onClick={() => isShowSidebar && setShowSidebar(!isShowSidebar)}>
           <div className='min-h-[calc(100vh-132px)] px-8 py-10 bg-slate-50'>
+            <aside
+              className={`
+                fixed mt-[68px] w-[150px] h-screen py-2 top-0 flex flex-col ${isShowSidebar ? 'left-0' : 'left-[-150px]'}
+                bg-fuchsia-200 md:hidden transition-all
+              `}>
+              <div className='pl-5 py-5'>logo</div>
+              {
+                navData.map(item => (
+                  <Link key={item.id}
+                    className={`
+                      pl-5 py-1 rounded-r-2xl font-semibold ${pathname === item.path ? '!bg-fuchsia-300' : ''} transition-all
+                    `}
+                    href={item.path}
+                  >{item.title}</Link>
+                ))
+              }
+            </aside>
             <div className='max-w-7xl mx-auto'>{children}</div>
           </div>
           <footer className='h-70px py-5 px-8 bg-sky-200'><div className='max-w-7xl mx-auto'>Footer</div></footer>
         </main>
       </div>
+
       {
         isShowBtn &&
         <Button
-          style='absolute bottom-36 right-10 p-3 rounded-xl bg-orange-300/[0.5]'
+          style='absolute bottom-36 right-10 p-3 rounded-xl bg-orange-300/[0.5] z-10'
           click={() => mainRef.current!.scrollTop = 0}
         >
-          <Image src={upIcon} alt='up' />
+          <Image src={up} alt='up' />
         </Button>
       }
     </>

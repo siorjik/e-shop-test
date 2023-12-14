@@ -1,21 +1,29 @@
 'use client'
 
+import { useCallback, useEffect } from 'react'
+
 import ProductCard from './ProductCard'
-import { useCallback } from 'react'
 
 import useCartContext from '@/contexts/CartContext'
+import useProductContext from '@/contexts/ProductContext'
 import { ProductType } from '@/types/ProductTypes'
 
 export default function ProductList({ data }: { data: ProductType[] }) {
-  const { products, setContext } = useCartContext()
+  const { products, setOrder } = useCartContext()
+  const { list, filter, setProduct } = useProductContext()
+
+  useEffect(() => {
+    if (!filter) setProduct({ list: data })
+    else setProduct({ list: data.filter(item => item.title.toLowerCase().includes(filter)) })
+  }, [data, filter])
 
   const action = useCallback((data: ProductType) => {
-    setContext({ products: [...products, data] })
+    setOrder({ products: [...products, data] })
   }, [products])
 
   return (
-    <div className='grid grid-cols-[repeat(auto-fit,_minmax(230px,_1fr))] gap-3'>
-      {data && data.map(item => <ProductCard key={item.id} data={item} func={action} />)}
+    <div className='grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] gap-3'>
+      {list && list.map(item => <ProductCard key={item.id} data={item} func={action} />)}
     </div>
   )
 }

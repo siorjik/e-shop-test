@@ -14,7 +14,7 @@ type OrderType = { product: ProductType, amount: number }
 export default function Cart() {
   const [order, setOrder] = useState<OrderType[] | []>([])
 
-  const { products, setContext } = useCartContext()
+  const { products, setOrder: setContext } = useCartContext()
   const { back } = useRouter()
 
   useEffect(() => {
@@ -151,7 +151,6 @@ export default function Cart() {
             </div>
           </>
       }
-
 
       {
         !!order.length &&
