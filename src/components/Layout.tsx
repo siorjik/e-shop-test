@@ -107,7 +107,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 fixed mt-[68px] w-[150px] h-screen top-0 flex flex-col ${isShowSidebar ? 'left-0' : 'left-[-150px]'}
                 bg-fuchsia-200 md:hidden transition-all
               `}>
-              <div className='pl-5 py-5'><Image width={80} height={75} src={logo} alt='logo' /></div>
+              <Image className='py-5 mx-auto' width={80} height={75} src={logo} alt='logo' />
               {
                 navData.map(item => (
                   <Link key={item.id}
