@@ -28,7 +28,7 @@ export default async function Product({ params }: { params: { id: string } }) {
 
   return (
     <div>
-      <Link href='/'>Go Back</Link>
+      <Link href='/'>Go Home</Link>
       {product && <div className='mt-10'><ProductInfo data={product} /></div>}
     </div>
   )

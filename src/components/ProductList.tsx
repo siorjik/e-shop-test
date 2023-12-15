@@ -22,7 +22,7 @@ export default function ProductList({ data }: { data: ProductType[] }) {
   }, [products])
 
   return (
-    <div className='grid grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] gap-3'>
+    <div className='grid grid-cols-[repeat(auto-fill,_minmax(205px,_1fr))] gap-3'>
       {list && list.map(item => <ProductCard key={item.id} data={item} func={action} />)}
     </div>
   )

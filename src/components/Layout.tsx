@@ -10,6 +10,7 @@ import Button from './Button'
 import cart from '@/../public/cart.svg'
 import burger from '@/../public/burger.svg'
 import up from '@/../public/up.svg'
+import logo from '@/../public/logo.png'
 
 import useCartContext from '@/contexts/CartContext'
 import useProductContext from '@/contexts/ProductContext'
@@ -63,21 +64,21 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <div className={`wrap h-screen ${isShowSidebar ? 'overflow-hidden' : 'overflow-auto'} scroll-smooth`} ref={mainRef}>
-        <header className='py-5 px-8 bg-green-200 text-lg sticky top-0 w-full h-[68px] z-20'>
-          <div className='max-w-7xl mx-auto grid grid-cols-[25px_1fr_40px] gap-5 md:grid-cols-[70px_1fr_2fr_40px]'>
-            <Link className='hidden md:block' href={'/'}>Logo</Link>
+        <header className='py-3 px-5 md:px-8 bg-green-200 text-lg sticky top-0 w-full h-[68px] z-20'>
+          <div className='max-w-7xl mx-auto grid grid-cols-[25px_1fr_40px] items-center gap-5 md:grid-cols-[47px_215px_1fr_40px]'>
+            <Link className='hidden md:block' href={'/'}><Image src={logo} alt='logo' /></Link>
             <nav className='hidden md:flex justify-between'>
               <menu>{getMenu()}</menu>
             </nav>
             <button className='md:hidden' onClick={() => setShowSidebar(!isShowSidebar)}>
               <Image src={burger} alt='cart' />
             </button>
-            <div className='relative'>
+            <div className='md:w-4/5 mx-auto relative'>
               <input
-                className='w-full pl-3 pr-8 py-1 rounded-md text-sm' ref={inputRef}
+                className='w-full pl-3 pr-8 py-2 rounded-md' ref={inputRef}
                 type="text" placeholder='Search by name...' onChange={handleChange}
               />
-              <span className='absolute right-3 cursor-pointer'
+              <span className='absolute top-2 right-3 cursor-pointer'
                 onClick={() => {
                   setProduct({ filter: '' })
 
@@ -100,13 +101,13 @@ export default function Layout({ children }: { children: ReactNode }) {
         </header>
 
         <main className='relative z-10' onClick={() => isShowSidebar && setShowSidebar(!isShowSidebar)}>
-          <div className='min-h-[calc(100vh-132px)] px-8 py-10 bg-slate-50'>
+          <div className='min-h-[calc(100vh-132px)] px-5 md:px-8 py-5 md:py-8 bg-slate-50'>
             <aside
               className={`
-                fixed mt-[68px] w-[150px] h-screen py-2 top-0 flex flex-col ${isShowSidebar ? 'left-0' : 'left-[-150px]'}
+                fixed mt-[68px] w-[150px] h-screen top-0 flex flex-col ${isShowSidebar ? 'left-0' : 'left-[-150px]'}
                 bg-fuchsia-200 md:hidden transition-all
               `}>
-              <div className='pl-5 py-5'>logo</div>
+              <div className='pl-5 py-5'><Image width={80} height={75} src={logo} alt='logo' /></div>
               {
                 navData.map(item => (
                   <Link key={item.id}

@@ -15,7 +15,7 @@ export default function Cart() {
   const [order, setOrder] = useState<OrderType[] | []>([])
 
   const { products, setOrder: setContext } = useCartContext()
-  const { back } = useRouter()
+  const { back, push } = useRouter()
 
   useEffect(() => {
     if (!!products.length) setMappedOrder()
@@ -65,7 +65,7 @@ export default function Cart() {
 
   const mathBtnStyle = 'w-[20px] h-[20px] align-text-bottom text-center bg-pink-300 text-lg rounded-md leading-[1]'
   const tableHeaderStyle = 'pr-10 pb-10 text-center font-medium text-amber-600'
-  const tableCellStyle = 'pr-10 pb-5 align-middle text-center'
+  const tableCellStyle = 'pr-10 py-5 text-center bg-yellow-100'
 
   const getCountBtn = (product: ProductType, action: 'plus' | 'minus'): ReactElement => (
     <Button style={mathBtnStyle} click={() => changeAmount(product, action)}>{action === 'minus' ? '-' : '+'}</Button>
@@ -90,7 +90,7 @@ export default function Cart() {
       {
         !order.length ? <h4 className='mt-10 text-center'>No products yet, start your shopping ;)</h4> :
           <>
-            <table className='mt-10 hidden lg:table'>{/* desktop view */}
+            <table className='mt-10 hidden lg:table border-separate border-spacing-y-1'>{/* desktop view */}
               <thead>
                 <tr>
                   <td className={tableHeaderStyle}>Product</td>
@@ -102,9 +102,11 @@ export default function Cart() {
               </thead>
               <tbody>
                 {
-                  order.map(({ product, amount }, index) => (
-                    <tr key={index + Date.now()}>
-                      <td className='flex pr-10 pb-5 align-middle'>
+                  order.map(({ product, amount }) => (
+                    <tr key={product.id}>
+                      <td className='flex px-10 py-5 bg-yellow-100 cursor-pointer'
+                        onClick={() => push(`/products/${product.id}`)}
+                      >
                         <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32' />
                         <h3 className='ml-10 my-auto font-semibold'>{product.title}</h3>
                       </td>
@@ -159,7 +161,7 @@ export default function Cart() {
           <div className='text-center'>
             <Button
               style='p-10 py-3 rounded-md bg-green-500 text-slate-50 hover:bg-green-600 transition-all'
-              click={() => {}}
+              click={() => { }}
             >Go To Payment and Delivery</Button>
           </div>
         </>
