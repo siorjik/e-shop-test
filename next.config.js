@@ -7,18 +7,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'fakestoreapi.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'i.imgur.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'placeimg.com'
-      },
-      {
-        protocol: 'https',
-        hostname: 'miro.medium.com'
       }
     ],
   }

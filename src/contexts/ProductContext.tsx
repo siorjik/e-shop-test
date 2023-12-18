@@ -4,7 +4,7 @@ import { createContext, useContext, useState } from 'react'
 
 import { ProductType } from '@/types/ProductTypes'
 
-export type ProductContextType = { list: ProductType[] | [], data: ProductType | {}, filter: '' }
+export type ProductContextType = { list: ProductType[] | [], data: ProductType | {}, filter: string }
 
 const ProductContext =
   createContext<ProductContextType & { setProduct: (data: { [k: string]: ProductType | ProductType[] | string }) => void }>

@@ -13,19 +13,28 @@ type OrderType = { product: ProductType, amount: number }
 
 export default function Cart() {
   const [order, setOrder] = useState<OrderType[] | []>([])
+  const [list, setList] = useState<ProductType[]>([])
 
-  const { products, setOrder: setContext } = useCartContext()
+  const { products, filter, setOrder: setContext } = useCartContext()
   const { back, push } = useRouter()
 
   useEffect(() => {
-    if (!!products.length) setMappedOrder()
+    if (products.length) {
+      if (filter) {
+        setList(products.filter(item => item.title.toLowerCase().includes(filter.toLowerCase())))
+      } else setList(products)
+    } else setList([])
+  }, [filter, products])
+
+  useEffect(() => {
+    if (list.length) setMappedOrder()
     else setOrder([])
-  }, [products])
+  }, [list])
 
   const setMappedOrder = (): void => {
     let newOrder: OrderType[] = []
 
-    products.forEach((item) => {
+    list.forEach((item) => {
       if (newOrder.find(orderItem => item.id === orderItem.product.id)) {
         const index = newOrder.findIndex(orderItem => item.id === orderItem.product.id)
 
@@ -70,6 +79,7 @@ export default function Cart() {
   const getCountBtn = (product: ProductType, action: 'plus' | 'minus'): ReactElement => (
     <Button style={mathBtnStyle} click={() => changeAmount(product, action)}>{action === 'minus' ? '-' : '+'}</Button>
   )
+  
   const getDeleteBtn = (product: ProductType): ReactElement => (
     <Button
       style='px-3 py-2 rounded-lg bg-red-300 text-slate-50 hover:bg-red-400 transition-all'
@@ -81,16 +91,17 @@ export default function Cart() {
   return (
     <>
       <Button style='' click={() => back()}>Go Back</Button>
-      {!!order.length && <div className='mt-5 mb-10 text-center'>
+      {!!order.length && !filter && <div className='mt-5 mb-10 text-center'>
         <Button
           style='p-10 py-3 rounded-md bg-red-500 text-slate-50 hover:bg-red-600 transition-all'
           click={() => setContext({ products: [] })}
         >Delete Order</Button>
       </div>}
       {
-        !order.length ? <h4 className='mt-10 text-center'>No products yet, start your shopping ;)</h4> :
+        !order.length && !filter ? <h4 className='mt-10 text-center'>No products yet, start your shopping ;)</h4> :
+        !order.length && filter ? <h4 className='mt-10 text-center'>No products were found by filter...</h4> :
           <>
-            <table className='mt-10 hidden lg:table border-separate border-spacing-y-1'>{/* desktop view */}
+            <table className='mt-10 hidden lg:table border-separate border-spacing-y-2'>{/* desktop view */}
               <thead>
                 <tr>
                   <td className={tableHeaderStyle}>Product</td>
@@ -155,7 +166,7 @@ export default function Cart() {
       }
 
       {
-        !!order.length &&
+        !!order.length && !filter &&
         <>
           <h3 className='my-8 pt-8 font-semibold border-t-4 text-xl text-gray-600'>Total sum: ${getTotalSum()}</h3>
           <div className='text-center'>

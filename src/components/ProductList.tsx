@@ -14,7 +14,7 @@ export default function ProductList({ data }: { data: ProductType[] }) {
 
   useEffect(() => {
     if (!filter) setProduct({ list: data })
-    else setProduct({ list: data.filter(item => item.title.toLowerCase().includes(filter)) })
+    else setProduct({ list: data.filter(item => item.title.toLowerCase().includes(filter.toLowerCase())) })
   }, [data, filter])
 
   const action = useCallback((data: ProductType) => {

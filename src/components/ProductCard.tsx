@@ -30,8 +30,8 @@ export default memo(function ProductCard({ data, func }: { data: ProductType, fu
         />
         <h3 className='mb-5 h-6 overflow-hidden text-center font-semibold'>{title}</h3>
         <div className='flex justify-between items-center'>
-          <span>${price}</span>
           <Image data-tooltip-id={`tooltip-${id}`} src={info} alt='info' onClick={(e) => e.stopPropagation()} />
+          <span>${price}</span>
           <Button
             style='cart-btn'
             click={() => func(data)}
