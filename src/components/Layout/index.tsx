@@ -6,16 +6,16 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import Button from '../Button'
+import Header from './Header'
 
 import up from '@/../public/up.svg'
 import logo from '@/../public/logo.png'
-import Header from './Header'
 import navData from './navData'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const [isShowBtn, setShowBtn] = useState(false)
   const [isShowSidebar, setShowSidebar] = useState(false)
-
+  
   const pathname = usePathname()
 
   const mainRef = useRef<HTMLDivElement>(null)

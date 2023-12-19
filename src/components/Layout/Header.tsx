@@ -21,6 +21,8 @@ export default function Header({ setShowSidebar }: { setShowSidebar: () => void 
   const pathname = usePathname()
   const { products } = useCartContext()
 
+  const isProductInfoPage = pathname !== '/' && pathname !== '/products' && pathname !== '/cart'
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)
 
   const getMenu = () => {
@@ -37,13 +39,15 @@ export default function Header({ setShowSidebar }: { setShowSidebar: () => void 
 
   const getSearch = () => (
     <div className='md:w-[85%] mx-auto relative'>
-      <input
-        className='w-full pl-3 pr-8 py-2 rounded-md' value={search}
-        type="text" placeholder='Search by name...' onChange={handleChange}
-      />
-      <span className='absolute top-2 right-3 cursor-pointer'
-        onClick={() => setSearch('')}
-      >x</span>
+      {!isProductInfoPage && <>
+        <input
+          className='w-full pl-3 pr-8 py-2 rounded-md' value={search}
+          type="text" placeholder='Search by name...' onChange={handleChange}
+        />
+        <span className='absolute top-2 right-3 cursor-pointer'
+          onClick={() => setSearch('')}
+        >x</span>
+      </>}
     </div>
   )
 
