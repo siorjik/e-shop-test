@@ -98,98 +98,97 @@ export default function Cart() {
 
   return (
     <>
-      {
-        isShowLoader ? <Spinner /> :
-          <>
-            <Button style='' click={() => back()}>Go Back</Button>
-            {!!order.length && !filter && <div className='mt-5 mb-10 text-center'>
-              <Button
-                style='p-10 py-3 rounded-md bg-red-500 text-slate-50 hover:bg-red-600 transition-all'
-                click={() => setContext({ products: [] })}
-              >Delete Order</Button>
-            </div>}
-            {
-              !order.length && !filter ? <h4 className='mt-10 text-center'>No products yet, start your shopping ;)</h4> :
-                !order.length && filter ? <h4 className='mt-10 text-center'>No products were found by filter...</h4> :
-                  <>
-                    <table className='mt-10 hidden lg:table border-separate border-spacing-y-2'>{/* desktop view */}
-                      <thead>
-                        <tr>
-                          <td className={tableHeaderStyle}>Product</td>
-                          <td className={tableHeaderStyle}>Price</td>
-                          <td className={tableHeaderStyle}>Amount</td>
-                          <td className={tableHeaderStyle}>Sum</td>
-                          <td></td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {
-                          order.map(({ product, amount }) => (
-                            <tr key={product.id}>
-                              <td className='flex px-10 py-5 bg-yellow-100 cursor-pointer'
-                                onClick={() => push(`/products/${product.id}`)}
-                              >
-                                <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32' />
-                                <h3 className='ml-10 my-auto font-semibold'>{product.title}</h3>
-                              </td>
-                              <td className={tableCellStyle}>${product.price}</td>
-                              <td className={`${tableCellStyle} min-w-[125px]`}>
-                                {getCountBtn(product, 'minus')}
-                                <span className='mx-3'>{amount}</span>
-                                {getCountBtn(product, 'plus')}
-                              </td>
-                              <td className={tableCellStyle}>${(amount * product.price).toFixed(2)}</td>
-                              <td className={tableCellStyle}>{getDeleteBtn(product)}</td>
-                            </tr>
-                          ))
-                        }
-                      </tbody>
-                    </table>
 
-                    <div className="flex flex-col mt-10 lg:hidden">{/* mobile view */}
-                      {
-                        order.map(({ product, amount }, index) => (
-                          <div key={index + Date.now()} className="mb-10 flex flex-col items-center">
-                            <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32 mb-5' />
-                            <h3 className='text-center font-semibold'>{product.title}</h3>
-                            <div className="flex mt-5 mb-1">
-                              <span className='w-[65px] text-right mr-5'>Amount:</span>
-                              <div className='w-[75px]'>
-                                {getCountBtn(product, 'minus')}
-                                <span className='mx-3'>{amount}</span>
-                                {getCountBtn(product, 'plus')}
-                              </div>
-                            </div>
-                            <div className="flex mb-1">
-                              <span className='w-[65px] text-right mr-5'>Price:</span>
-                              <span className='w-[75px]'>${product.price}</span>
-                            </div>
-                            <div className="flex mb-3">
-                              <span className='w-[65px] text-right mr-5'>Sum:</span>
-                              <span className='w-[75px]'>${(amount * product.price).toFixed(2)}</span>
-                            </div>
-                            {getDeleteBtn(product)}
-                          </div>
-                        ))
-                      }
-                    </div>
-                  </>
-            }
-
-            {
-              !!order.length && !filter &&
+      <>
+        <Button style='' click={() => back()}>Go Back</Button>
+        {!!order.length && !filter && <div className='mt-5 mb-10 text-center'>
+          <Button
+            style='p-10 py-3 rounded-md bg-red-500 text-slate-50 hover:bg-red-600 transition-all'
+            click={() => setContext({ products: [] })}
+          >Delete Order</Button>
+        </div>}
+        {
+          !order.length && !filter ? <h4 className='mt-10 text-center'>No products yet, start your shopping ;)</h4> :
+            !order.length && filter ? <h4 className='mt-10 text-center'>No products were found by filter...</h4> :
               <>
-                <h3 className='my-8 pt-8 font-semibold border-t-4 text-xl text-gray-600'>Total sum: ${getTotalSum()}</h3>
-                <div className='text-center'>
-                  <Button
-                    style='p-10 py-3 rounded-md bg-green-500 text-slate-50 hover:bg-green-600 transition-all'
-                    click={() => { }}
-                  >Go To Payment and Delivery</Button>
+                <table className='mt-10 hidden lg:table border-separate border-spacing-y-2'>{/* desktop view */}
+                  <thead>
+                    <tr>
+                      <td className={tableHeaderStyle}>Product</td>
+                      <td className={tableHeaderStyle}>Price</td>
+                      <td className={tableHeaderStyle}>Amount</td>
+                      <td className={tableHeaderStyle}>Sum</td>
+                      <td></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      order.map(({ product, amount }) => (
+                        <tr key={product.id}>
+                          <td className='flex px-10 py-5 bg-yellow-100 cursor-pointer'
+                            onClick={() => push(`/products/${product.id}`)}
+                          >
+                            <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32' />
+                            <h3 className='ml-10 my-auto font-semibold'>{product.title}</h3>
+                          </td>
+                          <td className={tableCellStyle}>${product.price}</td>
+                          <td className={`${tableCellStyle} min-w-[125px]`}>
+                            {getCountBtn(product, 'minus')}
+                            <span className='mx-3'>{amount}</span>
+                            {getCountBtn(product, 'plus')}
+                          </td>
+                          <td className={tableCellStyle}>${(amount * product.price).toFixed(2)}</td>
+                          <td className={tableCellStyle}>{getDeleteBtn(product)}</td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                </table>
+
+                <div className="flex flex-col mt-10 lg:hidden">{/* mobile view */}
+                  {
+                    order.map(({ product, amount }, index) => (
+                      <div key={index + Date.now()} className="mb-10 flex flex-col items-center">
+                        <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32 mb-5' />
+                        <h3 className='text-center font-semibold'>{product.title}</h3>
+                        <div className="flex mt-5 mb-1">
+                          <span className='w-[65px] text-right mr-5'>Amount:</span>
+                          <div className='w-[75px]'>
+                            {getCountBtn(product, 'minus')}
+                            <span className='mx-3'>{amount}</span>
+                            {getCountBtn(product, 'plus')}
+                          </div>
+                        </div>
+                        <div className="flex mb-1">
+                          <span className='w-[65px] text-right mr-5'>Price:</span>
+                          <span className='w-[75px]'>${product.price}</span>
+                        </div>
+                        <div className="flex mb-3">
+                          <span className='w-[65px] text-right mr-5'>Sum:</span>
+                          <span className='w-[75px]'>${(amount * product.price).toFixed(2)}</span>
+                        </div>
+                        {getDeleteBtn(product)}
+                      </div>
+                    ))
+                  }
                 </div>
               </>
-            }
+        }
+
+        {
+          !!order.length && !filter &&
+          <>
+            <h3 className='my-8 pt-8 font-semibold border-t-4 text-xl text-gray-600'>Total sum: ${getTotalSum()}</h3>
+            <div className='text-center'>
+              <Button
+                style='p-10 py-3 rounded-md bg-green-500 text-slate-50 hover:bg-green-600 transition-all'
+                click={() => { }}
+              >Go To Payment and Delivery</Button>
+            </div>
           </>
-      }
+        }
+      </>
+      {isShowLoader && <Spinner style='bg-fuchsia-200/[0.5]' />}
     </>
   )
 }
