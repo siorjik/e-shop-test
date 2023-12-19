@@ -3,6 +3,7 @@
 import { ReactElement, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 import Button from '@/components/Button'
 import Spinner from '@/components/Spinner'
@@ -148,12 +149,14 @@ export default function Cart() {
                 <div className="flex flex-col mt-10 lg:hidden">{/* mobile view */}
                   {
                     order.map(({ product, amount }, index) => (
-                      <div key={index + Date.now()} className="mb-10 flex flex-col items-center">
-                        <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32 mb-5' />
-                        <h3 className='text-center font-semibold'>{product.title}</h3>
+                      <div key={index + Date.now()} className="mb-3 p-5 flex flex-col items-center rounded-lg bg-cyan-100">
+                        <Link className='flex flex-col items-center' href={`/products/${product.id}`}>
+                          <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32 mb-5' />
+                          <h3 className='text-center font-semibold'>{product.title}</h3>
+                        </Link>
                         <div className="flex mt-5 mb-1">
                           <span className='w-[65px] text-right mr-5'>Amount:</span>
-                          <div className='w-[75px]'>
+                          <div className='w-[85px]'>
                             {getCountBtn(product, 'minus')}
                             <span className='mx-3'>{amount}</span>
                             {getCountBtn(product, 'plus')}
@@ -161,11 +164,11 @@ export default function Cart() {
                         </div>
                         <div className="flex mb-1">
                           <span className='w-[65px] text-right mr-5'>Price:</span>
-                          <span className='w-[75px]'>${product.price}</span>
+                          <span className='w-[85px]'>${product.price}</span>
                         </div>
                         <div className="flex mb-3">
                           <span className='w-[65px] text-right mr-5'>Sum:</span>
-                          <span className='w-[75px]'>${(amount * product.price).toFixed(2)}</span>
+                          <span className='w-[85px]'>${(amount * product.price).toFixed(2)}</span>
                         </div>
                         {getDeleteBtn(product)}
                       </div>

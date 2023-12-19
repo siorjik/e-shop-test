@@ -75,7 +75,7 @@ export default function Header({ setShowSidebar }: { setShowSidebar: () => void 
         {getCart()}
       </div>
 
-      <div className='mx-auto grid grid-cols-[25px_1fr_40px] items-center gap-5 md:hidden'>
+      <div className='mx-auto w-full grid grid-cols-[25px_1fr_40px] items-center gap-5 md:hidden'>
         <button onClick={() => setShowSidebar()}>
           <Image src={burger} alt='menu' />
         </button>
