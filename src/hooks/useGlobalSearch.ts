@@ -23,10 +23,10 @@ export default function useGlobalSearch(value: string) {
   }
   
   const setFilter = () => {
+    clearTimeout(timeoutRef.current as NodeJS.Timeout)
+
     if (!value) clearFilter()
     else {
-      clearTimeout(timeoutRef.current as NodeJS.Timeout)
-
       timeoutRef.current = setTimeout(() => {
         if (pathname === '/' || pathname === '/products') setProduct({ filter: value })
         else if (pathname === '/cart') setOrder({ filter: value })
