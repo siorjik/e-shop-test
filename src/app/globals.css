@@ -11,3 +11,24 @@
 input, button {
   outline: none;
 }
+
+.slick-next, .slick-prev {
+  width: 40px !important;
+  height: 40px !important;
+  top: auto !important;
+  bottom: -80px;
+  z-index: 1;
+  opacity: .3;
+}
+
+.slick-next:hover, .slick-prev:hover {
+  opacity: 1;
+}
+
+.slick-next {
+  right: -10px !important;
+}
+
+.slick-prev {
+  left: -10px !important;
+}

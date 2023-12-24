@@ -27,7 +27,6 @@ export default async function Products() {
 
   return (
     <>
-      <h2 className='mb-10 text-2xl'>Products Page</h2>
       {products && products.length && <ProductList data={products} />}
     </>
   )
