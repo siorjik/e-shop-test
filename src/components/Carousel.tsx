@@ -38,6 +38,7 @@ export default function Carousel({ data, style }: { data: ProductType[], style: 
     nextArrow: <Image src={chevronRight} alt='next' />,
     prevArrow: <Image src={chevronLeft} alt='prev' />,
     autoplay: true,
+    autoplaySpeed: 3000,
     adaptiveHeight: true,
   }
 
