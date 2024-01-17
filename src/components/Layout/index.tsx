@@ -36,12 +36,12 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <div className={`wrap h-screen ${isShowSidebar ? 'overflow-hidden' : 'overflow-auto'} scroll-smooth`} ref={mainRef}>
-        <header className='py-3 px-5 flex md:px-8 md:block bg-green-200 text-lg sticky top-0 w-full h-[68px] z-20'>
+      <div className={`wrap h-dvh ${isShowSidebar ? 'overflow-hidden' : 'overflow-auto'} scroll-smooth`} ref={mainRef}>
+        <header className='py-3 px-5 flex md:px-8 md:block bg-green-200 text-lg fixed top-0 w-full h-[68px] z-20'>
           <Header setShowSidebar={() => setShowSidebar(!isShowSidebar)} />
         </header>
 
-        <main className='relative z-10' onClick={() => isShowSidebar && setShowSidebar(!isShowSidebar)}>
+        <main className='relative z-10 mt-[68px]' onClick={() => isShowSidebar && setShowSidebar(!isShowSidebar)}>
           <div className='min-h-[calc(100vh-132px)] px-5 md:px-8 py-5 md:py-8 bg-slate-50'>
             <aside
               className={`
