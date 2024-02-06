@@ -53,8 +53,8 @@ export default function Layout({ children }: { children: ReactNode }) {
                 navData.map(item => (
                   <Link key={item.id}
                     className={`
-                      pl-5 py-2 mr-1 rounded-r-3xl border-l-4 border-transparent font-semibold
-                      ${pathname === item.path ? '!bg-stone-300 border-stone-400' : ''} transition-all
+                      pl-5 py-3 mr-1 rounded-r-3xl border-l-8 border-transparent font-semibold
+                      ${pathname === item.path ? '!bg-stone-300 !border-stone-400' : ''} transition-all
                     `}
                     href={item.path}
                   >{item.title}</Link>
