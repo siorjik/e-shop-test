@@ -29,14 +29,22 @@ export default function Carousel({ data, style }: { data: ProductType[], style: 
     </Link>
   )
 
+  const Arrow = (
+    { currentSlide, slideCount, name, ...restProps }:
+      { currentSlide?: string, slideCount?: string, name: string }
+  ) => {
+    if (name === 'right') return <Image src={chevronRight} {...restProps} alt='next' />
+    else return <Image src={chevronLeft} {...restProps} alt='previous' />
+  }
+
   const settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     className: `${style}`,
-    nextArrow: <Image src={chevronRight} alt='next' />,
-    prevArrow: <Image src={chevronLeft} alt='prev' />,
+    nextArrow: <Arrow name='right' />,
+    prevArrow: <Arrow name='left' />,
     autoplay: true,
     autoplaySpeed: 3000,
     adaptiveHeight: true,
@@ -44,7 +52,7 @@ export default function Carousel({ data, style }: { data: ProductType[], style: 
 
   return (
     <>
-      <Slider { ...settings }>{data.map(item => <Fragment key={item.id}>{getItem(item)}</Fragment>)}</Slider>
+      <Slider {...settings}>{data.map(item => <Fragment key={item.id}>{getItem(item)}</Fragment>)}</Slider>
     </>
   )
 }

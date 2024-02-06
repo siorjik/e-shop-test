@@ -42,18 +42,19 @@ export default function Layout({ children }: { children: ReactNode }) {
         </header>
 
         <main className='relative z-10 mt-[68px]' onClick={() => isShowSidebar && setShowSidebar(!isShowSidebar)}>
-          <div className='min-h-[calc(100vh-132px)] px-5 md:px-8 py-5 md:py-8 bg-slate-50'>
+          <div className='min-h-[calc(100dvh-132px)] px-5 md:px-8 py-5 md:py-8 bg-slate-50'>
             <aside
               className={`
-                mt-[68px] w-[150px] h-screen bg-stone-200 md:hidden transition-all z-10
-                fixed top-0 flex flex-col ${isShowSidebar ? 'left-0' : 'left-[-150px]'}
+                mt-[68px] w-[200px] h-screen bg-stone-200 md:hidden transition-all z-10
+                fixed top-0 flex flex-col ${isShowSidebar ? 'left-0' : 'left-[-200px]'}
               `}>
-              <Image className='py-5 mx-auto' width={80} height={75} src={logo} alt='logo' />
+              <Image className='py-8 mx-auto' width={70} height={70} src={logo} alt='logo' />
               {
                 navData.map(item => (
                   <Link key={item.id}
                     className={`
-                      pl-5 py-1 mr-1 rounded-r-2xl font-semibold ${pathname === item.path ? '!bg-stone-300' : ''} transition-all
+                      pl-5 py-2 mr-1 rounded-r-3xl border-l-4 border-transparent font-semibold
+                      ${pathname === item.path ? '!bg-stone-300 border-stone-400' : ''} transition-all
                     `}
                     href={item.path}
                   >{item.title}</Link>
