@@ -191,7 +191,7 @@ export default function Cart() {
           </>
         }
       </>
-      {isShowLoader && <Spinner style='bg-fuchsia-200/[0.5]' />}
+      {isShowLoader && <Spinner style='bg-violet-200/[0.5]' />}
     </>
   )
 }
