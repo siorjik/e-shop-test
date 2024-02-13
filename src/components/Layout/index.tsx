@@ -23,20 +23,16 @@ export default function Layout({ children }: { children: ReactNode }) {
   useEffect(() => {
     const div = mainRef.current!
 
-    div.addEventListener('scroll', () => {
-      setShowBtn(div.scrollTop > 1500 && div.scrollHeight > 1000)
-    })
+    div.addEventListener('scroll', () => setShowBtn(div.scrollTop > 1500 && div.scrollHeight > 1000))
 
     return () => {
-      div.removeEventListener('scroll', () => {
-        setShowBtn(div.scrollTop > 1500 && div.scrollHeight > 1000)
-      })
+      div.removeEventListener('scroll', () => setShowBtn(div.scrollTop > 1500 && div.scrollHeight > 1000))
     }
   }, [])
 
   return (
     <>
-      <div className={`wrap h-dvh ${isShowSidebar ? 'overflow-hidden' : 'overflow-auto'} scroll-smooth`} ref={mainRef}>
+      <div className={`wrap h-[100dvh] ${isShowSidebar ? 'overflow-hidden' : 'overflow-auto'} scroll-smooth`} ref={mainRef}>
         <header className='py-3 px-5 flex md:px-8 md:block bg-green-200 text-lg fixed top-0 w-full h-[68px] z-20'>
           <Header setShowSidebar={() => setShowSidebar(!isShowSidebar)} />
         </header>
