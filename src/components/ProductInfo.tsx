@@ -42,7 +42,7 @@ export default function ProductInfo({ data }: { data: ProductType }) {
           </div>
         </div>
       </div>
-      {isShowSpinner && <Spinner style='bg-fuchsia-200/[0.5]' />}
+      {isShowSpinner && <Spinner style='bg-violet-200/[0.5]' />}
     </>
   )
 }

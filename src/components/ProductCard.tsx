@@ -1,11 +1,9 @@
 'use client'
 
-import { memo } from 'react'
+import { memo, MouseEvent } from 'react'
 import { Tooltip } from 'react-tooltip'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-
-import Button from './Button'
 
 import cart from '@/../public/cart.svg'
 import info from '@/../public/info.svg'
@@ -32,10 +30,11 @@ export default memo(function ProductCard({ data, func }: { data: ProductType, fu
         <div className='flex justify-between items-center'>
           <Image data-tooltip-id={`tooltip-${id}`} src={info} alt='info' onClick={(e) => e.stopPropagation()} />
           <span>${price}</span>
-          <Button
-            style='cart-btn'
-            click={() => func(data)}
-          ><Image src={cart} alt='cart' /></Button>
+          <Image src={cart} alt='cart' onClick={(e: MouseEvent<HTMLImageElement>) => {
+            e.stopPropagation()
+
+            func(data)
+          }} />
         </div>
       </div>
 
