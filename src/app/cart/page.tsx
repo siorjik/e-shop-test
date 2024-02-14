@@ -8,6 +8,9 @@ import Link from 'next/link'
 import Button from '@/components/Button'
 import Spinner from '@/components/Spinner'
 
+import plus from '@/../public/plus.svg'
+import minus from '@/../public/minus.svg'
+
 import useCartContext from '@/contexts/CartContext'
 import { ProductType } from '@/types/ProductTypes'
 
@@ -81,12 +84,13 @@ export default function Cart() {
     return +sum.toFixed(2)
   }
 
-  const mathBtnStyle = 'w-[20px] h-[20px] align-text-bottom text-center bg-pink-300 text-lg rounded-md leading-[1]'
-  const tableHeaderStyle = 'pr-10 pb-10 text-center font-medium text-amber-600'
-  const tableCellStyle = 'pr-10 py-5 text-center bg-yellow-100'
+  const tableHeaderStyle = 'pr-5 pb-5 text-center font-medium text-amber-600'
+  const tableCellStyle = 'pr-5 py-5 text-center bg-yellow-100'
 
   const getCountBtn = (product: ProductType, action: 'plus' | 'minus'): ReactElement => (
-    <Button style={mathBtnStyle} click={() => changeAmount(product, action)}>{action === 'minus' ? '-' : '+'}</Button>
+    <Button style={'p-1 bg-pink-300 rounded-full'} click={() => changeAmount(product, action)}>
+      <Image src={action === 'minus' ? minus : plus} alt='counter-btn' height={10} width={10} />
+    </Button>
   )
 
   const getDeleteBtn = (product: ProductType): ReactElement => (
@@ -99,7 +103,6 @@ export default function Cart() {
 
   return (
     <>
-
       <>
         <Button style='' click={() => back()}>Go Back</Button>
         {!!order.length && !filter && <div className='mt-5 mb-10 text-center'>
@@ -111,9 +114,9 @@ export default function Cart() {
         {
           !order.length && !filter ? <h4 className='mt-10 text-center'>No products yet, start your shopping ;)</h4> :
             !order.length && filter ? <h4 className='mt-10 text-center'>No products were found by filter...</h4> :
-              <>
+              <div className='lg:grid lg:grid-cols-[3fr,1fr] gap-3'>
                 <table className='mt-10 hidden lg:table border-separate border-spacing-y-2'>{/* desktop view */}
-                  <thead>
+                  <thead className='sticky top-[68px] bg-slate-50'>
                     <tr>
                       <td className={tableHeaderStyle}>Product</td>
                       <td className={tableHeaderStyle}>Price</td>
@@ -126,11 +129,11 @@ export default function Cart() {
                     {
                       order.map(({ product, amount }) => (
                         <tr key={product.id}>
-                          <td className='flex px-10 py-5 bg-yellow-100 cursor-pointer'
+                          <td className='px-5 py-5 bg-yellow-100 cursor-pointer'
                             onClick={() => push(`/products/${product.id}`)}
                           >
                             <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32' />
-                            <h3 className='ml-10 my-auto font-semibold'>{product.title}</h3>
+                            <h3 className='mt-5 my-auto font-semibold'>{product.title}</h3>
                           </td>
                           <td className={tableCellStyle}>${product.price}</td>
                           <td className={`${tableCellStyle} min-w-[125px]`}>
@@ -175,20 +178,24 @@ export default function Cart() {
                     ))
                   }
                 </div>
-              </>
-        }
 
-        {
-          !!order.length && !filter &&
-          <>
-            <h3 className='my-8 pt-8 font-semibold border-t-4 text-xl text-gray-600'>Total sum: ${getTotalSum()}</h3>
-            <div className='text-center'>
-              <Button
-                style='p-10 py-3 rounded-md bg-green-500 text-slate-50 hover:bg-green-600 transition-all'
-                click={() => { }}
-              >Go To Payment and Delivery</Button>
-            </div>
-          </>
+                {
+                  !!order.length && !filter &&
+                  <div className='lg:text-center'>
+                    <div className='lg:sticky lg:top-[68px]'>
+                      <h3 className='my-8 lg:my-5 pt-8 font-semibold border-t-4 lg:border-t-0 text-xl text-gray-600'>
+                        Total sum: ${getTotalSum()}
+                      </h3>
+                      <div className='text-center'>
+                        <Button
+                          style='p-10 py-3 rounded-md bg-green-500 text-slate-50 hover:bg-green-600 transition-all'
+                          click={() => { }}
+                        >Go To Payment and Delivery</Button>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
         }
       </>
       {isShowLoader && <Spinner style='bg-violet-200/[0.5]' />}
