@@ -67,9 +67,10 @@ export default function Cart() {
     if (action === 'plus') {
       productsCopy = [...productsCopy, product]
     } else {
+      if (products.findIndex(i => i.id === product.id) === products.findLastIndex(i => i.id === product.id)) return
+
       products.forEach((item, index) => {
-        if (products.findIndex(i => i.id === product.id) === products.findLastIndex(i => i.id === product.id)) return false
-        else if (item.id === product.id) return productsCopy = [...products.slice(0, index), ...products.slice(index + 1)]
+        if (item.id === product.id) return productsCopy = [...products.slice(0, index), ...products.slice(index + 1)]
       })
     }
 
