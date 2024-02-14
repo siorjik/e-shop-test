@@ -130,11 +130,11 @@ export default function Cart() {
                     {
                       order.map(({ product, amount }) => (
                         <tr key={product.id}>
-                          <td className='px-5 py-5 bg-yellow-100 cursor-pointer'
+                          <td className='px-5 py-5 flex flex-col items-center bg-yellow-100 cursor-pointer'
                             onClick={() => push(`/products/${product.id}`)}
                           >
                             <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32' />
-                            <h3 className='mt-5 my-auto font-semibold'>{product.title}</h3>
+                            <h3 className='mt-5 my-auto font-semibold text-center'>{product.title}</h3>
                           </td>
                           <td className={tableCellStyle}>${product.price}</td>
                           <td className={`${tableCellStyle} min-w-[125px]`}>
