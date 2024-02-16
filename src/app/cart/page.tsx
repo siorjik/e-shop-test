@@ -10,6 +10,7 @@ import Spinner from '@/components/Spinner'
 
 import plus from '@/../public/plus.svg'
 import minus from '@/../public/minus.svg'
+import home from '@/../public/home.svg'
 
 import useCartContext from '@/contexts/CartContext'
 import { ProductType } from '@/types/ProductTypes'
@@ -105,7 +106,7 @@ export default function Cart() {
   return (
     <>
       <>
-        <Button style='' click={() => back()}>Go Back</Button>
+        <Link href='/'><Image src={home} alt='home' /></Link>
         {!!order.length && !filter && <div className='mt-5 mb-10 text-center'>
           <Button
             style='p-10 py-3 rounded-md bg-red-500 text-slate-50 hover:bg-red-600 transition-all'
