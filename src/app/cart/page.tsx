@@ -23,7 +23,7 @@ export default function Cart() {
   const [isShowLoader, setShowLoader] = useState(false)
 
   const { products, filter, setOrder: setContext } = useCartContext()
-  const { back, push } = useRouter()
+  const { push } = useRouter()
 
   useEffect(() => {
     if (products.length) {
@@ -131,7 +131,7 @@ export default function Cart() {
                     {
                       order.map(({ product, amount }) => (
                         <tr key={product.id}>
-                          <td className='px-5 py-5 flex flex-col items-center bg-yellow-100 cursor-pointer'
+                          <td className='px-5 py-5 flex flex-col items-center bg-yellow-100 cursor-pointer rounded-s-xl'
                             onClick={() => push(`/products/${product.id}`)}
                           >
                             <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32' />
@@ -144,7 +144,7 @@ export default function Cart() {
                             {getCountBtn(product, 'plus')}
                           </td>
                           <td className={tableCellStyle}>${(amount * product.price).toFixed(2)}</td>
-                          <td className={tableCellStyle}>{getDeleteBtn(product)}</td>
+                          <td className={`${tableCellStyle} rounded-e-xl`}>{getDeleteBtn(product)}</td>
                         </tr>
                       ))
                     }

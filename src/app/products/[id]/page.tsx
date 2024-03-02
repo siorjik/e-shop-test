@@ -7,6 +7,25 @@ import home from '@/../public/home.svg'
 import { ProductType } from '@/types/ProductTypes'
 import ProductInfo from '@/components/ProductInfo'
 
+export async function generateStaticParams(): Promise<{ id: string }[]> {
+  try {
+    const res = await fetch('https://fakestoreapi.com/products')
+
+    if (!res.ok) throw new Error(`Something went wrong, error: ${res.status}`)
+    
+    
+    const products = await res.json()
+
+    return products.map((item: ProductType) => ({ id: `${item.id}` }))
+  } catch (err) {
+    const error = err as Error
+
+    console.log(error)
+
+    return []
+  }
+}
+
 async function getProduct(id: string): Promise<ProductType | { error: Error }> {
   try {
     const res = await fetch(`https://fakestoreapi.com/products/${id}`)
@@ -30,9 +49,9 @@ export default async function Product({ params }: { params: { id: string } }) {
   if ('error' in product) notFound()
 
   return (
-    <div>
+    <>
       <Link href='/'><Image src={home} alt='home' /></Link>
       {product && <div className='mt-10'><ProductInfo data={product} /></div>}
-    </div>
+    </>
   )
 }
