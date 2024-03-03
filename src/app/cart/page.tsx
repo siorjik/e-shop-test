@@ -2,7 +2,6 @@
 
 import { ReactElement, useEffect, useState } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 import Button from '@/components/Button'
@@ -12,18 +11,22 @@ import plus from '@/../public/plus.svg'
 import minus from '@/../public/minus.svg'
 import home from '@/../public/home.svg'
 
+import DesktopView from './components/DesktopView'
+import MobileView from './components/MobileView'
+
 import useCartContext from '@/contexts/CartContext'
 import { ProductType } from '@/types/ProductTypes'
-
-type OrderType = { product: ProductType, amount: number }
+import useScreenData from '@/hooks/useScreenData'
+import { OrderType } from '@/types/CartTypes'
 
 export default function Cart() {
   const [order, setOrder] = useState<OrderType[] | []>([])
   const [list, setList] = useState<ProductType[]>([])
   const [isShowLoader, setShowLoader] = useState(false)
 
+  const { isMobile } = useScreenData()
+
   const { products, filter, setOrder: setContext } = useCartContext()
-  const { push } = useRouter()
 
   useEffect(() => {
     if (products.length) {
@@ -86,9 +89,6 @@ export default function Cart() {
     return +sum.toFixed(2)
   }
 
-  const tableHeaderStyle = 'pr-5 pb-5 text-center font-medium text-amber-600'
-  const tableCellStyle = 'pr-5 py-5 text-center bg-yellow-100'
-
   const getCountBtn = (product: ProductType, action: 'plus' | 'minus'): ReactElement => (
     <Button style={'p-1 bg-pink-300 rounded-full'} click={() => changeAmount(product, action)}>
       <Image src={action === 'minus' ? minus : plus} alt='counter-btn' height={10} width={10} />
@@ -117,69 +117,10 @@ export default function Cart() {
           !order.length && !filter ? <h4 className='mt-10 text-center'>No products yet, start your shopping ;)</h4> :
             !order.length && filter ? <h4 className='mt-10 text-center'>No products were found by filter...</h4> :
               <div className='lg:grid lg:grid-cols-[3fr,1fr] gap-3'>
-                <table className='mt-10 hidden lg:table border-separate border-spacing-y-2'>{/* desktop view */}
-                  <thead className='sticky top-[68px] bg-slate-50'>
-                    <tr>
-                      <td className={tableHeaderStyle}>Product</td>
-                      <td className={tableHeaderStyle}>Price</td>
-                      <td className={tableHeaderStyle}>Amount</td>
-                      <td className={tableHeaderStyle}>Sum</td>
-                      <td></td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      order.map(({ product, amount }) => (
-                        <tr key={product.id}>
-                          <td className='px-5 py-5 flex flex-col items-center bg-yellow-100 cursor-pointer rounded-s-xl'
-                            onClick={() => push(`/products/${product.id}`)}
-                          >
-                            <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32' />
-                            <h3 className='mt-5 my-auto font-semibold text-center'>{product.title}</h3>
-                          </td>
-                          <td className={tableCellStyle}>${product.price}</td>
-                          <td className={`${tableCellStyle} min-w-[125px]`}>
-                            {getCountBtn(product, 'minus')}
-                            <span className='mx-3'>{amount}</span>
-                            {getCountBtn(product, 'plus')}
-                          </td>
-                          <td className={tableCellStyle}>${(amount * product.price).toFixed(2)}</td>
-                          <td className={`${tableCellStyle} rounded-e-xl`}>{getDeleteBtn(product)}</td>
-                        </tr>
-                      ))
-                    }
-                  </tbody>
-                </table>
-
-                <div className="flex flex-col mt-10 lg:hidden">{/* mobile view */}
-                  {
-                    order.map(({ product, amount }, index) => (
-                      <div key={index + Date.now()} className="mb-3 p-5 flex flex-col items-center rounded-lg bg-cyan-100">
-                        <Link className='flex flex-col items-center' href={`/products/${product.id}`}>
-                          <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32 mb-5' />
-                          <h3 className='text-center font-semibold'>{product.title}</h3>
-                        </Link>
-                        <div className="flex mt-5 mb-1">
-                          <span className='w-[65px] text-right mr-5'>Amount:</span>
-                          <div className='w-[85px]'>
-                            {getCountBtn(product, 'minus')}
-                            <span className='mx-3'>{amount}</span>
-                            {getCountBtn(product, 'plus')}
-                          </div>
-                        </div>
-                        <div className="flex mb-1">
-                          <span className='w-[65px] text-right mr-5'>Price:</span>
-                          <span className='w-[85px]'>${product.price}</span>
-                        </div>
-                        <div className="flex mb-3">
-                          <span className='w-[65px] text-right mr-5'>Sum:</span>
-                          <span className='w-[85px]'>${(amount * product.price).toFixed(2)}</span>
-                        </div>
-                        {getDeleteBtn(product)}
-                      </div>
-                    ))
-                  }
-                </div>
+                {
+                  !isMobile ? <DesktopView order={order} getCountBtn={getCountBtn} getDeleteBtn={getDeleteBtn} /> :
+                    <MobileView order={order} getCountBtn={getCountBtn} getDeleteBtn={getDeleteBtn} />
+                }
 
                 {
                   !!order.length && !filter &&
