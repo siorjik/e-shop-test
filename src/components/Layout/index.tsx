@@ -59,7 +59,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             </aside>
             <div className='max-w-7xl mx-auto relative'>{children}</div>
           </div>
-          <footer className='h-70px py-5 px-8 bg-sky-200'><div className='max-w-7xl mx-auto'>Footer</div></footer>
+          <footer className='h-70px py-5 px-8 bg-sky-200'><div className='max-w-7xl mx-auto'>&copy; 2024</div></footer>
         </main>
       </div>
 
