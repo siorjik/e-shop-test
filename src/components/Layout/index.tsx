@@ -57,7 +57,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 ))
               }
             </aside>
-            <div className='max-w-7xl mx-auto'>{children}</div>
+            <div className='max-w-7xl mx-auto relative'>{children}</div>
           </div>
           <footer className='h-70px py-5 px-8 bg-sky-200'><div className='max-w-7xl mx-auto'>Footer</div></footer>
         </main>
@@ -66,7 +66,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       {
         isShowBtn &&
         <Button
-          style='absolute bottom-36 right-10 p-3 rounded-xl bg-orange-300/[0.5] z-10'
+          style='absolute bottom-36 right-10 2xl:right-[30%] p-3 rounded-xl bg-orange-300/[0.5] z-10'
           click={() => mainRef.current!.scrollTop = 0}
         >
           <Image src={up} alt='up' />

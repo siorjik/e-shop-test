@@ -1,8 +1,4 @@
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
-import Image from 'next/image'
-
-import home from '@/../public/home.svg'
 
 import { ProductType } from '@/types/ProductTypes'
 import ProductInfo from '@/components/ProductInfo'
@@ -50,8 +46,7 @@ export default async function Product({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <Link href='/'><Image src={home} alt='home' /></Link>
-      {product && <div className='mt-10'><ProductInfo data={product} /></div>}
+      {product && <ProductInfo data={product} />}
     </>
   )
 }

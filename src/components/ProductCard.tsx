@@ -18,7 +18,7 @@ export default memo(function ProductCard({ data, func }: { data: ProductType, fu
   return (
     <>
       <div 
-        className='p-5 flex flex-col justify-center bg-slate-100 rounded-lg shadow-[5px_5px_15px_2px_rgba(0,0,0,0.1)]
+        className='p-3 flex flex-col justify-center bg-slate-100 rounded-lg shadow-[5px_5px_15px_2px_rgba(0,0,0,0.1)]
         hover:bg-lime-50 hover:m-[-5px] transition-all cursor-pointer'
         onClick={() => push(`/products/${id}`)}
       >

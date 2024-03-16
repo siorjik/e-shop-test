@@ -42,7 +42,7 @@ export default function Header({ setShowSidebar }: { setShowSidebar: () => void 
       {!isProductInfoPage && <>
         <input
           className='w-full pl-3 pr-8 py-2 rounded-md' value={search}
-          type="text" placeholder='Search by name...' onChange={handleChange}
+          type="text" placeholder='Search by title...' onChange={handleChange}
         />
         <span className='absolute top-2 right-3 cursor-pointer'
           onClick={() => setSearch('')}
