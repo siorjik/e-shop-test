@@ -26,7 +26,7 @@ export default memo(function ProductCard({ data, func }: { data: ProductType, fu
           width={100} height={100}
           className='h-32 w-32 mx-auto mb-3 object-fill cursor-pointer' src={image} alt={image}
         />
-        <h3 className='mb-5 h-6 overflow-hidden text-center font-semibold'>{title}</h3>
+        <h3 className='mb-5 line-clamp-1 text-center font-semibold'>{title}</h3>
         <div className='flex justify-between items-center'>
           <Image data-tooltip-id={`tooltip-${id}`} src={info} alt='info' onClick={(e) => e.stopPropagation()} />
           <span>${price}</span>

@@ -28,7 +28,7 @@ export default function DesktopView({ order, getCountBtn, getDeleteBtn }: ViewPr
                 onClick={() => push(`/products/${product.id}`)}
               >
                 <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32' />
-                <h3 className='mt-5 my-auto font-semibold text-center'>{product.title}</h3>
+                <h3 className='mt-5 my-auto font-semibold text-center line-clamp-1'>{product.title}</h3>
               </td>
               <td className={tableCellStyle}>${product.price}</td>
               <td className={`${tableCellStyle} min-w-[125px]`}>
