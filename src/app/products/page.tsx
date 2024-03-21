@@ -33,7 +33,7 @@ export default async function Products({ searchParams }: { searchParams: { categ
 
   return (
     <>
-      {res.products && res.products.length && <div className='grid md:grid-cols-[160px,1fr] gap-5 md:gap-20'>
+      {res.products && res.products.length && <div className='grid md:grid-cols-[165px,1fr] gap-5 md:gap-20'>
         <CategoryList list={res.categories} query={searchParams.categories} />
         <ProductList data={res.products} />
       </div>}

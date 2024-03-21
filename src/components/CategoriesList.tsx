@@ -21,8 +21,6 @@ export default function CategoriesList({ list = [], query = '' }: { list: string
 
   const getQueryString = () => categories.filter(item => item.isChecked).map(item => item.name).join(',')
 
-  const firstLetterUp = (val: string) => val[0].toUpperCase() + val.slice(1)
-
   return (
     <>
       {
@@ -30,7 +28,7 @@ export default function CategoriesList({ list = [], query = '' }: { list: string
           <h3 className='mb-5'>Categories:</h3>
           {
             categories.map((item, index) => (
-              <label key={index} className='mb-1 cursor-pointer'>
+              <label key={index} className='mb-1 cursor-pointer capitalize'>
                 <input
                   className='mr-3 cursor-pointer'
                   name={item.name}
@@ -38,7 +36,7 @@ export default function CategoriesList({ list = [], query = '' }: { list: string
                   onChange={onChange}
                   value={item.name}
                   checked={item.isChecked}
-                />{firstLetterUp(item.name)}
+                />{item.name}
               </label>
             ))
           }
