@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 
 import { ProductType } from '@/types/ProductTypes'
 import ProductList from '@/components/ProductList'
-import CategoryList from '@/components/CategoriesList'
+import CategoryList from '@/components/CategoryList'
 
 async function getProducts(query: string = ''): Promise<{ products: ProductType[], categories: string[] } | { error: Error }> {
   try {

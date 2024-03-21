@@ -3,7 +3,7 @@
 import { ChangeEvent, useState, useEffect } from 'react'
 import Link from 'next/link'
 
-export default function CategoriesList({ list = [], query = '' }: { list: string[], query: string }) {
+export default function CategoryList({ list = [], query = '' }: { list: string[], query: string }) {
   const [categories, setCategories] = useState<{ name: string, isChecked: boolean }[]>([])
 
   useEffect(() => {
