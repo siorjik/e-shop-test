@@ -24,7 +24,7 @@ export default function ProductInfo({ data }: { data: ProductType }) {
     <>
       <div className='flex flex-col md:flex-row lg:grid lg:grid-cols-[1fr,2fr] lg:gap-8'>
         <Image
-          width={100} height={100} src={image} alt={image} className='mx-auto mb-10 h-56 w-52 md:h-80 md:w-80 md:mx-0 lg:mx-0'
+          width={100} height={100} src={image} alt={image} className='mx-auto mb-10 h-56 w-52 md:h-72 md:w-72 md:mx-0 lg:mx-0'
         />
         <div className="flex flex-col md:ml-10 lg:grid lg:grid-cols-[2fr,1fr] lg:gap-8 lg:ml-0">
           <div>

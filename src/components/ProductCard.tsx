@@ -24,7 +24,7 @@ export default memo(function ProductCard({ data, func }: { data: ProductType, fu
       >
         <Image
           width={100} height={100}
-          className='h-36 w-36 mx-auto mb-3 object-fill cursor-pointer' src={image} alt={image}
+          className='h-32 w-32 mx-auto mb-3 object-fill cursor-pointer' src={image} alt={image}
         />
         <h3 className='mb-5 line-clamp-1 text-center font-semibold'>{title}</h3>
         <div className='flex justify-between items-center'>
