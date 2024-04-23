@@ -14,7 +14,7 @@ export default function Checkout() {
 
   const options = {
     mode: 'payment' as const,
-    amount: sum * 100 || 100,
+    amount: +(sum * 100).toFixed(2),
     currency: 'usd',
     locale: 'en' as const,
   }
