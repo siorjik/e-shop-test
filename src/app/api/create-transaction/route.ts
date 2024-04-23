@@ -8,7 +8,7 @@ export async function POST(req: Request): Promise<NextResponse<{ clientSecret: s
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: +(+body.amount * 100).toFixed(2),
+      amount: +(body.amount * 100).toFixed(2),
       currency: 'usd',
     })
 
