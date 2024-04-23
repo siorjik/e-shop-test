@@ -8,6 +8,7 @@ import Spinner from './Spinner'
 
 export default function Stripe({ sum }: { sum: number }) {
   const [errorMessage, setErrorMessage] = useState('')
+  const [isDisabled, setIsDisabled] = useState(false)
 
   const stripe = useStripe()
   const elements = useElements()
@@ -23,23 +24,31 @@ export default function Stripe({ sum }: { sum: number }) {
 
     if (submitError) return
 
+    setIsDisabled(true)
+
     const resp = await fetch('/api/create-transaction', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount: sum })
     })
 
-    if (!resp.ok) return setErrorMessage('Error processing payment')
+    if (!resp.ok) {
+      setErrorMessage('Error processing payment')
+      setIsDisabled(false)
+    }
 
     const { clientSecret } = await resp.json()
 
     const { error } = await stripe.confirmPayment({
       elements,
-      confirmParams: { return_url: 'http://localhost:3000/transaction-success' },
+      confirmParams: { return_url: `${process.env.NEXT_PUBLIC_APP_URL}/transaction-success` },
       clientSecret,
     })
 
-    if (error) setErrorMessage(error.message as string)
+    if (error) {
+      setErrorMessage(error.message as string)
+      setIsDisabled(false)
+    }
   }
 
   return (
@@ -49,9 +58,11 @@ export default function Stripe({ sum }: { sum: number }) {
         <PaymentElement />
         <Button
           type='submit'
+          disabled={isDisabled}
           style={`
             mx-auto mt-10 block w-4/5 md:w-2/5 py-2 text-white text-2xl
-            rounded-lg bg-fuchsia-300 hover:bg-fuchsia-500 transition-all
+            rounded-lg bg-fuchsia-300 hover:bg-fuchsia-500
+            ${isDisabled ? 'bg-fuchsia-100 hover:bg-fuchsia-100' : ''} transition-all
           `}
         >Pay</Button>
       </form>
