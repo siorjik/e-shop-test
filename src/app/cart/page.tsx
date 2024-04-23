@@ -17,6 +17,7 @@ import useCartContext from '@/contexts/CartContext'
 import { ProductType } from '@/types/ProductTypes'
 import useScreenData from '@/hooks/useScreenData'
 import { OrderType } from '@/types/CartTypes'
+import Link from 'next/link'
 
 export default function Cart() {
   const [order, setOrder] = useState<OrderType[] | []>([])
@@ -25,7 +26,7 @@ export default function Cart() {
 
   const { isMobile } = useScreenData()
 
-  const { products, filter, setOrder: setContext } = useCartContext()
+  const { products, filter, sum, setOrder: setContext } = useCartContext()
 
   useEffect(() => {
     if (products.length) {
@@ -80,14 +81,6 @@ export default function Cart() {
     setContext({ products: productsCopy })
   }
 
-  const getTotalSum = (): number => {
-    let sum = 0
-
-    products.forEach(item => sum += item.price)
-
-    return +sum.toFixed(2)
-  }
-
   const getCountBtn = (product: ProductType, action: 'plus' | 'minus'): ReactElement => (
     <Button style={'p-1 bg-pink-300 rounded-full'} click={() => changeAmount(product, action)}>
       <Image src={action === 'minus' ? minus : plus} alt='counter-btn' height={10} width={10} />
@@ -124,13 +117,10 @@ export default function Cart() {
                   <div className='lg:text-center'>
                     <div className='lg:sticky lg:top-[68px]'>
                       <h3 className='my-8 lg:my-5 pt-8 font-semibold border-t-4 lg:border-t-0 text-xl text-gray-600'>
-                        Total sum: ${getTotalSum()}
+                        Total sum: ${sum}
                       </h3>
                       <div className='text-center'>
-                        <Button
-                          style='p-10 py-3 rounded-md bg-green-500 text-slate-50 hover:bg-green-600 transition-all'
-                          click={() => { }}
-                        >Go To Payment and Delivery</Button>
+                        <Link className='green-btn' href='/checkout'>Go To Payment and Delivery</Link>
                       </div>
                     </div>
                   </div>

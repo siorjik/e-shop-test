@@ -6,6 +6,10 @@
   .cart-btn {
     @apply py-1 px-3 rounded-lg bg-slate-200 cursor-pointer hover:bg-slate-300 transition-all
   }
+
+  .green-btn {
+    @apply mt-10 p-10 py-3 rounded-md bg-green-500 text-slate-50 hover:bg-green-600 transition-all
+  }
 }
 
 input, button, img, a {
