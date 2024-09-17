@@ -26,11 +26,11 @@ export default function Checkout() {
         <p className='mb-3 text-lg'>Delivery:</p>
         <p>in progress...</p>
       </div>
-      <div className='w-[47%] mb-10'>
+      {sum && <div className='lg:w-[47%] mb-10'>
         <Elements stripe={stripePromise} options={options}>
           <Stripe sum={sum} />
         </Elements>
-      </div>
+      </div>}
     </div>
   )
 }

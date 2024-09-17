@@ -119,8 +119,8 @@ export default function Cart() {
                       <h3 className='my-8 lg:my-5 pt-8 font-semibold border-t-4 lg:border-t-0 text-xl text-gray-600'>
                         Total sum: ${sum}
                       </h3>
-                      <div className='text-center'>
-                        <Link className='green-btn' href='/checkout'>Go To Payment and Delivery</Link>
+                      <div className='flex justify-center'>
+                        <Link className='green-btn table-cell' href='/checkout'>Go To Payment and Delivery</Link>
                       </div>
                     </div>
                   </div>
@@ -128,7 +128,7 @@ export default function Cart() {
               </div>
         }
       </>
-      {isShowLoader && <Spinner style='bg-violet-200/[0.5]' />}
+      {isShowLoader && <Spinner style='client-spinner' />}
     </>
   )
 }

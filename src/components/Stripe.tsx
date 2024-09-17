@@ -9,6 +9,7 @@ import Spinner from './Spinner'
 export default function Stripe({ sum }: { sum: number }) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isDisabled, setIsDisabled] = useState(false)
+  const [isShowLoader, setShowLoader] = useState(false)
 
   const stripe = useStripe()
   const elements = useElements()
@@ -25,6 +26,7 @@ export default function Stripe({ sum }: { sum: number }) {
     if (submitError) return
 
     setIsDisabled(true)
+    setShowLoader(true)
 
     const resp = await fetch('/api/create-transaction', {
       method: 'POST',
@@ -48,6 +50,7 @@ export default function Stripe({ sum }: { sum: number }) {
     if (error) {
       setErrorMessage(error.message as string)
       setIsDisabled(false)
+      setShowLoader(false)
     }
   }
 
@@ -66,8 +69,8 @@ export default function Stripe({ sum }: { sum: number }) {
           `}
         >Pay</Button>
       </form>
-
       {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
+      {isShowLoader && <Spinner style='client-spinner' />}
     </>
   )
 }

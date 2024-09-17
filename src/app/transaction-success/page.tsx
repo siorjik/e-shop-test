@@ -13,8 +13,8 @@ export default function TransactionSuccess() {
   }, [setOrder])
 
   return (
-    <div className='h-[100dvh] flex-col flex items-center justify-center'>
-      <h1 className='text-3xl text-orange-400'>Your order was accepted! Thanks for your purchases!</h1>
+    <div className='h-[100dvh] px-5 flex-col flex items-center justify-center'>
+      <h1 className='mb-10 text-center text-3xl text-orange-400'>Your order was accepted! Thanks for your purchases!</h1>
       <Link className='green-btn' href='/'>
         Go to continue shopping
       </Link>

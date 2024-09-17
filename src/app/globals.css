@@ -8,7 +8,11 @@
   }
 
   .green-btn {
-    @apply mt-10 p-10 py-3 rounded-md bg-green-500 text-slate-50 hover:bg-green-600 transition-all
+    @apply p-10 py-3 rounded-md bg-green-500 text-slate-50 hover:bg-green-600 transition-all
+  }
+
+  .client-spinner {
+    @apply !bg-violet-200/[0.5]
   }
 }
 
