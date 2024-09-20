@@ -3,10 +3,11 @@
 import { useEffect } from 'react'
 import Link from 'next/link'
 
-import useCartContext from '@/contexts/CartContext'
+import { useCartContext, useCartActionsContext } from '@/contexts/CartContext'
 
 export default function TransactionSuccess() {
-  const { setOrder, sum } = useCartContext()
+  const { sum } = useCartContext()
+  const { setOrder } = useCartActionsContext()
 
   useEffect(() => {
     if (sum) setOrder({ products: [], filter: '', sum: 0 })

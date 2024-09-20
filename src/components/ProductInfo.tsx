@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 import { ProductType } from '@/types/ProductTypes'
-import useCartContext from '@/contexts/CartContext'
+import { useCartContext, useCartActionsContext } from '@/contexts/CartContext'
 import cart from '@/../public/cart.svg'
 import Button from './Button'
 import Spinner from './Spinner'
@@ -14,7 +14,8 @@ export default function ProductInfo({ data }: { data: ProductType }) {
 
   const { image, title, description, price } = data
 
-  const { products, setOrder } = useCartContext()
+  const { products } = useCartContext()
+  const { setOrder } = useCartActionsContext()
 
   useEffect(() => {
     if (isShowSpinner) setTimeout(() => setShowSpinner(!isShowSpinner), 300)

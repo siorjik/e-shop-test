@@ -5,7 +5,7 @@ import { Elements } from '@stripe/react-stripe-js'
 
 import Stripe from '@/components/Stripe'
 
-import useCartContext from '@/contexts/CartContext'
+import { useCartContext } from '@/contexts/CartContext'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 

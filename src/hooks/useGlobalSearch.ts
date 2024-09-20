@@ -4,12 +4,13 @@ import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 
 import useProductContext from '@/contexts/ProductContext'
-import useCartContext from '@/contexts/CartContext'
+import { useCartContext, useCartActionsContext } from '@/contexts/CartContext'
 
 export default function useGlobalSearch(value: string) {
   const pathname = usePathname()
   const { filter: productFilter, list, setProduct } = useProductContext()
-  const { filter, setOrder } = useCartContext()
+  const { filter } = useCartContext()
+  const { setOrder } = useCartActionsContext()
 
   let timeoutRef: { current: NodeJS.Timeout | null } = useRef(null)
 

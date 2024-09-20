@@ -1,16 +1,17 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react'
 
 import { ProductType } from '@/types/ProductTypes'
 
-export type CartContextType = { products: ProductType[], filter: string, sum: number }
+export type CartValueContextType = { products: ProductType[], filter: string, sum: number }
+export type CartActionsContextType = { setOrder: (data: { [k: string]: ProductType[] | string | number }) => void }
 
-const CartContext = createContext<CartContextType & { setOrder: (data: { [k:string]: ProductType[] | string | number }) => void }>
-  ({ products: [], filter: '', setOrder: () => {}, sum: 0 })
+const CartValueContext = createContext<CartValueContextType>({ products: [], filter: '', sum: 0 })
+const CartActionsContext = createContext<CartActionsContextType>({ setOrder: () => { } })
 
 export const CartContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [context, setContext] = useState<CartContextType>({ products: [], filter: '', sum: 0 })
+  const [context, setContext] = useState<CartValueContextType>({ products: [], filter: '', sum: 0 })
 
   useEffect(() => {
     if (window.localStorage.getItem('cart')) {
@@ -22,15 +23,15 @@ export const CartContextProvider = ({ children }: { children: React.ReactNode })
     }
   }, [])
 
-  const getTotalSum = (products: ProductType[]): number => {
+  const getTotalSum = useMemo(() => (products: ProductType[]): number => {
     let sum = 0
 
     products.forEach(item => sum += item.price)
 
-    return +sum.toFixed(2) 
-  }
+    return +sum.toFixed(2)
+  }, [context.products])
 
-  const setOrder = (data: { [k:string]: ProductType[] | string | number }) => {
+  const setOrder = useCallback((data: { [k: string]: ProductType[] | string | number }) => {
     if ('products' in data) {
       window.localStorage.setItem('cart', JSON.stringify(data.products))
 
@@ -38,13 +39,19 @@ export const CartContextProvider = ({ children }: { children: React.ReactNode })
     }
 
     setContext({ ...context, ...data })
-  }
+  }, [])
+
+  const value = useMemo(() => ({ ...context }), [context])
+  const actions = useMemo(() => ({ setOrder }), [setOrder])
 
   return (
-    <CartContext.Provider value={{ ...context, setOrder }}>
-      {children}
-    </CartContext.Provider>
+    <CartValueContext.Provider value={{ ...value }}>
+      <CartActionsContext.Provider value={{ ...actions }}>
+        {children}
+      </CartActionsContext.Provider>
+    </CartValueContext.Provider>
   )
 }
 
-export default () => useContext(CartContext)
+export const useCartContext = () => useContext(CartValueContext)
+export const useCartActionsContext = () => useContext(CartActionsContext)

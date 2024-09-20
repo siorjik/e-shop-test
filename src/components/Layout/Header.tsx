@@ -9,7 +9,7 @@ import cart from '@/../public/cart.svg'
 import burger from '@/../public/burger.svg'
 import logo from '@/../public/logo.png'
 
-import useCartContext from '@/contexts/CartContext'
+import { useCartContext } from '@/contexts/CartContext'
 import navData from './navData'
 import useGlobalSearch from '@/hooks/useGlobalSearch'
 

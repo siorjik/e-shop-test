@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import ProductCard from './ProductCard'
 import Spinner from './Spinner'
 
-import useCartContext from '@/contexts/CartContext'
+import { useCartContext, useCartActionsContext } from '@/contexts/CartContext'
 import useProductContext from '@/contexts/ProductContext'
 import { ProductType } from '@/types/ProductTypes'
 
@@ -13,7 +13,8 @@ export default function ProductList({ data }: { data: ProductType[] }) {
   const [isShowLoader, setShowLoader] = useState(false)
   const [isShowSpinner, setShowSpinner] = useState(false)
 
-  const { products, setOrder } = useCartContext()
+  const { products } = useCartContext()
+  const { setOrder } = useCartActionsContext()
   const { list, filter, setProduct } = useProductContext()
 
   useEffect(() => {

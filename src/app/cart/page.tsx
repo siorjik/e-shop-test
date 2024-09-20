@@ -13,7 +13,7 @@ import trash from '@/../public/trash.svg'
 import DesktopView from './components/DesktopView'
 import MobileView from './components/MobileView'
 
-import useCartContext from '@/contexts/CartContext'
+import { useCartContext, useCartActionsContext } from '@/contexts/CartContext'
 import { ProductType } from '@/types/ProductTypes'
 import useScreenData from '@/hooks/useScreenData'
 import { OrderType } from '@/types/CartTypes'
@@ -26,7 +26,8 @@ export default function Cart() {
 
   const { isMobile } = useScreenData()
 
-  const { products, filter, sum, setOrder: setContext } = useCartContext()
+  const { products, filter, sum } = useCartContext()
+  const { setOrder: setContext } = useCartActionsContext()
 
   useEffect(() => {
     if (products.length) {
