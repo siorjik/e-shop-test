@@ -5,7 +5,7 @@ import { createContext, useContext, useState, useEffect, useCallback, useMemo } 
 import { ProductType } from '@/types/ProductTypes'
 
 export type CartValueContextType = { products: ProductType[], filter: string, sum: number }
-export type CartActionsContextType = { setOrder: (data: { [k: string]: ProductType[] | string | number }) => void }
+export type CartActionsContextType = { setOrder: (data: Partial<CartValueContextType>) => void }
 
 const CartValueContext = createContext<CartValueContextType>({ products: [], filter: '', sum: 0 })
 const CartActionsContext = createContext<CartActionsContextType>({ setOrder: () => { } })
@@ -31,7 +31,7 @@ export const CartContextProvider = ({ children }: { children: React.ReactNode })
     return +sum.toFixed(2)
   }, [context.products])
 
-  const setOrder = useCallback((data: { [k: string]: ProductType[] | string | number }) => {
+  const setOrder = useCallback((data: Partial<CartValueContextType>) => {
     if ('products' in data) {
       window.localStorage.setItem('cart', JSON.stringify(data.products))
 
@@ -39,7 +39,7 @@ export const CartContextProvider = ({ children }: { children: React.ReactNode })
     }
 
     setContext({ ...context, ...data })
-  }, [])
+  }, [context.products])
 
   const value = useMemo(() => ({ ...context }), [context])
   const actions = useMemo(() => ({ setOrder }), [setOrder])

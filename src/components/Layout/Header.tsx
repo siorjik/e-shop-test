@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, useState } from 'react'
+import { useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -9,21 +9,33 @@ import cart from '@/../public/cart.svg'
 import burger from '@/../public/burger.svg'
 import logo from '@/../public/logo.png'
 
-import { useCartContext } from '@/contexts/CartContext'
+import { useCartActionsContext, useCartContext } from '@/contexts/CartContext'
+import { useProductActionsContext } from '@/contexts/ProductContext'
 import navData from './navData'
-import useGlobalSearch from '@/hooks/useGlobalSearch'
 
 export default function Header({ setShowSidebar }: { setShowSidebar: () => void }) {
   const [search, setSearch] = useState('')
 
-  useGlobalSearch(search)
-
   const pathname = usePathname()
+
   const { products } = useCartContext()
+  const { setProduct } = useProductActionsContext()
+  const { setOrder } = useCartActionsContext()
+
+  let timeoutRef: { current: NodeJS.Timeout | null } = useRef(null)
 
   const isProductInfoPage = pathname !== '/' && pathname !== '/products' && pathname !== '/cart'
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)
+  const handleChange = (value: string) => {
+    setSearch(value)
+
+    clearTimeout(timeoutRef.current as NodeJS.Timeout)
+
+    timeoutRef.current = setTimeout(() => {
+      if (pathname === '/' || pathname === '/products') setProduct({ filter: value })
+      else if (pathname === '/cart') setOrder({ filter: value })
+    }, 500)
+  }
 
   const getMenu = () => {
     return navData.map(item => (
@@ -42,10 +54,10 @@ export default function Header({ setShowSidebar }: { setShowSidebar: () => void 
       {!isProductInfoPage && <>
         <input
           className='w-full pl-3 pr-8 py-2 rounded-md' value={search}
-          type="text" placeholder='Search by title...' onChange={handleChange}
+          type="text" placeholder='Search by title...' onChange={(e) => handleChange(e.target.value)}
         />
         <span className='absolute top-2 right-3 cursor-pointer'
-          onClick={() => setSearch('')}
+          onClick={() => handleChange('')}
         >x</span>
       </>}
     </div>
