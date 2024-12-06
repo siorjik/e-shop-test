@@ -98,7 +98,7 @@ export default function Cart() {
   return (
     <>
       <>
-        {!!order.length && !filter && <div className='mb-10 text-center'>
+        {!!order.length && !filter && <div className='text-center'>
           <Button
             style='p-10 py-3 rounded-md bg-red-500 text-slate-50 hover:bg-red-600 transition-all'
             click={() => setContext({ products: [] })}
@@ -116,8 +116,8 @@ export default function Cart() {
                 {
                   !!order.length && !filter &&
                   <div className='lg:text-center'>
-                    <div className='lg:sticky lg:top-[68px]'>
-                      <h3 className='my-8 lg:my-5 pt-8 font-semibold border-t-4 lg:border-t-0 text-xl text-gray-600'>
+                    <div className='lg:sticky lg:top-[78px]'>
+                      <h3 className='my-8 lg:my-4 pt-8 font-semibold border-t-4 lg:border-t-0 text-xl text-gray-600'>
                         Total sum: ${sum}
                       </h3>
                       <div className='flex justify-center'>
