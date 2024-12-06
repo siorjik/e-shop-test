@@ -10,14 +10,12 @@ export default function TransactionSuccess() {
 
   useEffect(() => {
     if (sum) setOrder({ products: [], filter: '', sum: 0 })
-  }, [setOrder])
+  }, [setOrder, sum])
 
   return (
     <div className='h-[100dvh] flex-col flex items-center justify-center'>
       <h1 className='text-3xl text-orange-400'>Your order was accepted! Thanks for your purchases!</h1>
-      <Link className='green-btn' href='/'>
-        Go to continue shopping
-      </Link>
+      <Link className='green-btn' href='/'>Go to Continue Shopping</Link>
     </div>
   )
 }

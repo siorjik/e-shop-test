@@ -6,6 +6,7 @@ import { Elements } from '@stripe/react-stripe-js'
 import Stripe from '@/components/Stripe'
 
 import useCartContext from '@/contexts/CartContext'
+import getFormatAmount from '@/helpers/getFormatAmount'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -14,7 +15,7 @@ export default function Checkout() {
 
   const options = {
     mode: 'payment' as const,
-    amount: +(sum * 100).toFixed(2),
+    amount: getFormatAmount(sum),
     currency: 'usd',
     locale: 'en' as const,
   }
@@ -27,9 +28,9 @@ export default function Checkout() {
         <p>in progress...</p>
       </div>
       <div className='w-[47%] mb-10'>
-        <Elements stripe={stripePromise} options={options}>
+        {!!sum && <Elements stripe={stripePromise} options={options}>
           <Stripe sum={sum} />
-        </Elements>
+        </Elements>}
       </div>
     </div>
   )
