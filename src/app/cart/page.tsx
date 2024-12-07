@@ -116,8 +116,8 @@ export default function Cart() {
                 {
                   !!order.length && !filter &&
                   <div className='lg:text-center'>
-                    <div className='lg:sticky lg:top-[78px]'>
-                      <h3 className='my-8 lg:my-4 pt-8 font-semibold border-t-4 lg:border-t-0 text-xl text-gray-600'>
+                    <div className='lg:sticky lg:top-[68px] lg:mt-10'>
+                      <h3 className='my-8 lg:my-2 pt-8 lg:pt-0 font-semibold border-t-4 lg:border-t-0 text-xl text-gray-600'>
                         Total sum: ${sum}
                       </h3>
                       <div className='flex justify-center'>
