@@ -5,6 +5,9 @@ import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js'
 
 import Button from '@/components/Button'
 import Spinner from './Spinner'
+import apiService from '@/services/apiService'
+
+const appUrl = process.env.NEXT_PUBLIC_APP_URL
 
 export default function Stripe({ sum }: { sum: number }) {
   const [errorMessage, setErrorMessage] = useState('')
@@ -28,29 +31,27 @@ export default function Stripe({ sum }: { sum: number }) {
     setIsDisabled(true)
     setShowLoader(true)
 
-    const resp = await fetch('/api/create-transaction', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: sum })
-    })
+    try {
+      const resp =
+        await apiService<{ clientSecret: string }>({ url: '/api/create-transaction', method: 'POST', body: { amount: sum } })
 
-    if (!resp.ok) {
-      setErrorMessage('Error processing payment')
-      setIsDisabled(false)
-    }
+      const { clientSecret } = resp
 
-    const { clientSecret } = await resp.json()
+      const { error } = await stripe.confirmPayment({
+        elements,
+        confirmParams: { return_url: `${appUrl}/transaction-success` },
+        clientSecret,
+      })
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: { return_url: `${process.env.NEXT_PUBLIC_APP_URL}/transaction-success` },
-      clientSecret,
-    })
+      if (error) throw error
+    } catch (err) {
+      const error = err as Error
 
-    if (error) {
-      setErrorMessage(error.message as string)
-      setIsDisabled(false)
-      setShowLoader(false)
+      if (error) {
+        setErrorMessage(error.message as string)
+        setIsDisabled(false)
+        setShowLoader(false)
+      }
     }
   }
 
@@ -67,7 +68,7 @@ export default function Stripe({ sum }: { sum: number }) {
             rounded-lg bg-fuchsia-300 hover:bg-fuchsia-500
             ${isDisabled ? 'bg-fuchsia-100 hover:bg-fuchsia-100' : ''} transition-all
           `}
-        >Pay</Button>
+        >Pay{isDisabled ? '...' : null}</Button>
       </form>
       {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
       {isShowLoader && <Spinner style='client-spinner' />}

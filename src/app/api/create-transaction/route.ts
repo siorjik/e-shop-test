@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
+import getFormatAmount from '@/helpers/getFormatAmount'
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { typescript: true })
 
 export async function POST(req: Request): Promise<NextResponse<{ clientSecret: string } | any>> {
@@ -8,7 +10,7 @@ export async function POST(req: Request): Promise<NextResponse<{ clientSecret: s
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: +(body.amount * 100).toFixed(2),
+      amount: getFormatAmount(body.amount),
       currency: 'usd',
     })
 
