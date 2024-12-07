@@ -5,20 +5,23 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import ProductCard from './ProductCard'
 import Spinner from './Spinner'
 
-import useCartContext from '@/contexts/CartContext'
-import useProductContext from '@/contexts/ProductContext'
+import { useCartContext, useCartActionsContext } from '@/contexts/CartContext'
+import { useProductContext, useProductActionsContext } from '@/contexts/ProductContext'
 import { ProductType } from '@/types/ProductTypes'
 
 export default function ProductList({ data }: { data: ProductType[] }) {
   const [isShowLoader, setShowLoader] = useState(false)
   const [isShowSpinner, setShowSpinner] = useState(false)
 
-  const { products, setOrder } = useCartContext()
-  const { list, filter, setProduct } = useProductContext()
+  const { products } = useCartContext()
+  const { setOrder } = useCartActionsContext()
+  const { list, filter } = useProductContext()
+  const { setProduct } = useProductActionsContext()
 
   useEffect(() => {
-    if (!filter) setProduct({ list: data })
-    else setProduct({ list: data.filter(item => item.title.toLowerCase().includes(filter.toLowerCase())) })
+    if (filter) {
+      setProduct({ list: data, filter })
+    } else setProduct({ list: data || [] })
 
     setLoader
   }, [data, filter])
@@ -38,12 +41,14 @@ export default function ProductList({ data }: { data: ProductType[] }) {
 
   return (
     <>
-      {isShowLoader ? <Spinner /> :
-        data.length && filter && !list.length ? <h4 className='mt-10 text-center'>No products were found by filter...</h4> :
-          <div className='grid grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-3'>
-            {list && list.map(item => <ProductCard key={item.id} data={item} func={action} />)}
-            {isShowSpinner && <Spinner style='bg-violet-200/[0.5]' />}
-          </div>}
+      {
+        isShowLoader ? <Spinner /> :
+          data.length && filter && !list.length ? <h4 className='mt-10 text-center'>No products were found by filter...</h4> :
+            <div className='grid grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] gap-3'>
+              {list && list.map(item => <ProductCard key={item.id} data={item} func={action} />)}
+              {isShowSpinner && <Spinner style='client-spinner' />}
+            </div>
+      }
     </>
   )
 }

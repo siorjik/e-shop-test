@@ -6,11 +6,11 @@ import { ViewPropsType } from '@/types/CartTypes'
 export default function DesktopView({ order, getCountBtn, getDeleteBtn }: ViewPropsType) {
   const { push } = useRouter()
 
-  const tableHeaderStyle = 'pr-5 pb-5 text-center font-medium text-amber-600'
+  const tableHeaderStyle = 'pr-5 pb-1 text-center font-medium text-amber-600'
   const tableCellStyle = 'pr-5 py-5 text-center bg-yellow-100'
 
   return (
-    <table className='mt-10 table border-separate border-spacing-y-2'>
+    <table className='mt-8 table border-separate border-spacing-y-2'>
       <thead className='sticky top-[68px] bg-slate-50'>
         <tr>
           <td className={tableHeaderStyle}>Product</td>

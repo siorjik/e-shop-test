@@ -11,7 +11,8 @@ const appUrl = process.env.NEXT_PUBLIC_APP_URL
 
 export default function Stripe({ sum }: { sum: number }) {
   const [errorMessage, setErrorMessage] = useState('')
-  const [isProgress, setProgress] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
+  const [isShowLoader, setShowLoader] = useState(false)
 
   const stripe = useStripe()
   const elements = useElements()
@@ -27,7 +28,8 @@ export default function Stripe({ sum }: { sum: number }) {
 
     if (submitError) return
 
-    setProgress(true)
+    setIsDisabled(true)
+    setShowLoader(true)
 
     try {
       const resp =
@@ -45,8 +47,11 @@ export default function Stripe({ sum }: { sum: number }) {
     } catch (err) {
       const error = err as Error
 
-      setErrorMessage(error.message)
-      setProgress(false)
+      if (error) {
+        setErrorMessage(error.message as string)
+        setIsDisabled(false)
+        setShowLoader(false)
+      }
     }
   }
 
@@ -57,16 +62,16 @@ export default function Stripe({ sum }: { sum: number }) {
         <PaymentElement />
         <Button
           type='submit'
-          disabled={isProgress}
+          disabled={isDisabled}
           style={`
             mx-auto mt-10 block w-4/5 md:w-2/5 py-2 text-white text-2xl
             rounded-lg bg-fuchsia-300 hover:bg-fuchsia-500
-            ${isProgress ? 'bg-fuchsia-100 hover:bg-fuchsia-100' : ''} transition-all
+            ${isDisabled ? 'bg-fuchsia-100 hover:bg-fuchsia-100' : ''} transition-all
           `}
-        >Pay{isProgress ? '...' :  null}</Button>
+        >Pay{isDisabled ? '...' : null}</Button>
       </form>
-
-      {errorMessage && <p className='mt-10 mb-5 text-center text-red-500'>{errorMessage}</p>}
+      {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
+      {isShowLoader && <Spinner style='client-spinner' />}
     </>
   )
 }

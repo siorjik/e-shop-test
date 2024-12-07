@@ -13,7 +13,7 @@ import trash from '@/../public/trash.svg'
 import DesktopView from './components/DesktopView'
 import MobileView from './components/MobileView'
 
-import useCartContext from '@/contexts/CartContext'
+import { useCartContext, useCartActionsContext } from '@/contexts/CartContext'
 import { ProductType } from '@/types/ProductTypes'
 import useScreenData from '@/hooks/useScreenData'
 import { OrderType } from '@/types/CartTypes'
@@ -26,7 +26,8 @@ export default function Cart() {
 
   const { isMobile } = useScreenData()
 
-  const { products, filter, sum, setOrder: setContext } = useCartContext()
+  const { products, filter, sum } = useCartContext()
+  const { setOrder: setContext } = useCartActionsContext()
 
   useEffect(() => {
     if (products.length) {
@@ -97,7 +98,7 @@ export default function Cart() {
   return (
     <>
       <>
-        {!!order.length && !filter && <div className='mb-10 text-center'>
+        {!!order.length && !filter && <div className='text-center'>
           <Button
             style='p-10 py-3 rounded-md bg-red-500 text-slate-50 hover:bg-red-600 transition-all'
             click={() => setContext({ products: [] })}
@@ -115,12 +116,12 @@ export default function Cart() {
                 {
                   !!order.length && !filter &&
                   <div className='lg:text-center'>
-                    <div className='lg:sticky lg:top-[68px]'>
-                      <h3 className='my-8 lg:my-5 pt-8 font-semibold border-t-4 lg:border-t-0 text-xl text-gray-600'>
+                    <div className='lg:sticky lg:top-[68px] lg:mt-10'>
+                      <h3 className='my-8 lg:my-2 pt-8 lg:pt-0 font-semibold border-t-4 lg:border-t-0 text-xl text-gray-600'>
                         Total sum: ${sum}
                       </h3>
-                      <div className='text-center'>
-                        <Link className='green-btn' href='/checkout'>Go To Payment and Delivery</Link>
+                      <div className='flex justify-center'>
+                        <Link className='green-btn table-cell' href='/checkout'>Go To Payment and Delivery</Link>
                       </div>
                     </div>
                   </div>
@@ -128,7 +129,7 @@ export default function Cart() {
               </div>
         }
       </>
-      {isShowLoader && <Spinner style='bg-violet-200/[0.5]' />}
+      {isShowLoader && <Spinner style='client-spinner' />}
     </>
   )
 }
