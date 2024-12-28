@@ -11,7 +11,7 @@ export default function DesktopView({ order, getCountBtn, getDeleteBtn }: ViewPr
 
   return (
     <table className='w-full mt-8 table border-separate border-spacing-y-2'>
-      <thead className='sticky top-[68px] bg-slate-50'>
+      <thead className='sticky top-[60px] bg-slate-50'>
         <tr>
           <td className={tableHeaderStyle}>Product</td>
           <td className={tableHeaderStyle}>Price</td>
