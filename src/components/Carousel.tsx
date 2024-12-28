@@ -20,7 +20,7 @@ export default function Carousel({ data, style }: { data: ProductType[], style: 
         p-3 flex flex-col items-center md:grid md:grid-cols-[14rem,_1fr]
         md:items-start gap-5 md:bg-gradient-to-r from-white cursor-pointer
       '>
-        <Image width={100} height={100} src={item.image} alt={item.image} className='h-60 w-56' />
+        <Image width={100} height={100} src={item.image} alt={item.image} className='h-60 w-56' priority />
         <div>
           <h2 className='md:mb-5 text-lg font-semibold text-center'>{item.title}</h2>
           <div className='hidden md:line-clamp-6'>{item.description}</div>

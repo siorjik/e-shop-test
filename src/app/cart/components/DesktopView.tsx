@@ -10,7 +10,7 @@ export default function DesktopView({ order, getCountBtn, getDeleteBtn }: ViewPr
   const tableCellStyle = 'pr-5 py-5 text-center bg-yellow-100'
 
   return (
-    <table className='mt-8 table border-separate border-spacing-y-2'>
+    <table className='w-full mt-8 table border-separate border-spacing-y-2'>
       <thead className='sticky top-[68px] bg-slate-50'>
         <tr>
           <td className={tableHeaderStyle}>Product</td>

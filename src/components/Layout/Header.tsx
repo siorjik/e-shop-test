@@ -41,7 +41,7 @@ export default function Header({ setShowSidebar }: { setShowSidebar: () => void 
     return navData.map(item => (
       <Link key={item.id}
         className={`
-          pb-5 px-3 ml-3 border-b-2 border-transparent font-semibold
+          pb-4 px-3 ml-3 border-b-2 border-transparent font-semibold
           ${pathname === item.path ? '!border-green-600' : 'hover:border-green-400'} transition-all
         `}
         href={item.path}
@@ -53,10 +53,10 @@ export default function Header({ setShowSidebar }: { setShowSidebar: () => void 
     <div className='md:w-[85%] mx-auto relative'>
       {!isProductInfoPage && <>
         <input
-          className='w-full pl-3 pr-8 py-2 rounded-md' value={search}
+          className='w-full pl-3 pr-8 py-1 rounded-md' value={search}
           type="text" placeholder='Search by title...' onChange={(e) => handleChange(e.target.value)}
         />
-        <span className='absolute top-2 right-3 cursor-pointer'
+        <span className='absolute top-1 right-3 cursor-pointer'
           onClick={() => handleChange('')}
         >x</span>
       </>}
