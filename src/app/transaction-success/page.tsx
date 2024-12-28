@@ -11,7 +11,7 @@ export default function TransactionSuccess() {
 
   useEffect(() => {
     if (sum) setOrder({ products: [], filter: '', sum: 0 })
-  }, [setOrder])
+  }, [setOrder, sum])
 
   return (
     <div className='h-[100dvh] px-5 flex-col flex items-center justify-center'>

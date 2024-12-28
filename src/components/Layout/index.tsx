@@ -33,12 +33,12 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <div className={`wrap h-[100dvh] ${isShowSidebar ? 'overflow-hidden' : 'overflow-auto'} scroll-smooth`} ref={mainRef}>
-        <header className='py-3 px-5 flex md:px-8 md:block bg-green-200 text-lg fixed top-0 w-full h-[68px] z-20'>
+        <header className='py-2 px-5 flex md:px-8 md:block bg-green-200 text-lg fixed top-0 w-full h-[60px] z-20'>
           <Header setShowSidebar={() => setShowSidebar(!isShowSidebar)} />
         </header>
 
-        <main className='relative z-10 mt-[68px]' onClick={() => isShowSidebar && setShowSidebar(!isShowSidebar)}>
-          <div className='min-h-[calc(100dvh-132px)] px-5 md:px-8 py-5 md:py-8 bg-slate-50'>
+        <main className='relative z-10 mt-[60px]' onClick={() => isShowSidebar && setShowSidebar(!isShowSidebar)}>
+          <div className='min-h-[calc(100dvh-120px)] px-5 md:px-8 py-5 md:py-8 bg-slate-50'>
             <aside
               className={`
                 mt-[68px] w-[200px] h-screen bg-stone-200 md:hidden transition-all z-10
@@ -59,7 +59,9 @@ export default function Layout({ children }: { children: ReactNode }) {
             </aside>
             <div className='max-w-7xl mx-auto relative'>{children}</div>
           </div>
-          <footer className='h-70px py-5 px-8 bg-sky-200'><div className='max-w-7xl mx-auto'>&copy; 2024</div></footer>
+          <footer className='h-[60px] py-2 px-8 flex items-center bg-sky-200'>
+            <div className='max-w-7xl text-sm'>&copy; 2024</div>
+          </footer>
         </main>
       </div>
 
