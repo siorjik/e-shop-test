@@ -60,7 +60,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             <div className='max-w-7xl mx-auto relative'>{children}</div>
           </div>
           <footer className='h-[60px] py-2 px-8 flex items-center bg-sky-200'>
-            <div className='w-full m-auto max-w-7xl text-sm'>&copy; 2024</div>
+            <div className='w-full m-auto max-w-7xl text-sm'>&copy; {new Date().getFullYear()}</div>
           </footer>
         </main>
       </div>
