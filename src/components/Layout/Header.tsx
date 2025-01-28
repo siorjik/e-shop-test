@@ -41,8 +41,9 @@ export default function Header({ setShowSidebar }: { setShowSidebar: () => void 
     return navData.map(item => (
       <Link key={item.id}
         className={`
-          pb-4 px-3 ml-3 border-b-2 border-transparent font-semibold
-          ${pathname === item.path ? '!border-green-600' : 'hover:border-green-400'} transition-all
+          pb-4 px-3 ml-3 border-b-[3px] border-transparent font-semibold
+          ${pathname === item.path ?
+            '!border-green-600 dark:!border-yellow-600' : 'hover:border-green-400 dark:hover:border-yellow-300'} transition-all
         `}
         href={item.path}
       >{item.title}</Link>
@@ -56,7 +57,7 @@ export default function Header({ setShowSidebar }: { setShowSidebar: () => void 
           className='w-full pl-3 pr-8 py-1 rounded-md' value={search}
           type="text" placeholder='Search by title...' onChange={(e) => handleChange(e.target.value)}
         />
-        <span className='absolute top-1 right-3 cursor-pointer'
+        <span className='absolute top-[1px] right-3 cursor-pointer'
           onClick={() => handleChange('')}
         >x</span>
       </>}
@@ -69,7 +70,8 @@ export default function Header({ setShowSidebar }: { setShowSidebar: () => void 
         <Image src={cart} alt='cart' />
         <span
           className='
-            absolute right-0  bottom-3 w-[23px] h-[23px] leading-6 text-center text-xs text-slate-50 bg-orange-400 rounded-full
+            absolute right-0  bottom-3 w-[23px] h-[23px] leading-6 text-center text-xs
+            text-slate-50 bg-orange-400 dark:bg-orange-600 rounded-full
           '
         >{products.length}</span>
       </Link>

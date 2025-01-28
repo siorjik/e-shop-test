@@ -65,7 +65,7 @@ export default function Stripe({ sum }: { sum: number }) {
           disabled={isDisabled}
           style={`
             mx-auto mt-10 block w-4/5 md:w-2/5 py-2 text-white text-2xl
-            rounded-lg bg-fuchsia-300 hover:bg-fuchsia-500
+            rounded-lg bg-fuchsia-300 dark:bg-fuchsia-500 hover:bg-fuchsia-500 dark:hover:bg-fuchsia-700
             ${isDisabled ? 'bg-fuchsia-100 hover:bg-fuchsia-100' : ''} transition-all
           `}
         >Pay{isDisabled ? '...' : null}</Button>

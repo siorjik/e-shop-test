@@ -42,10 +42,13 @@ export default function CategoryList({ list = [], query = '' }: { list: string[]
           }
           <div className="mt-5 flex md:justify-between">
             {categories.find(item => item.isChecked) &&
-              <Link className='py-1 px-3 mr-5 bg-slate-200 rounded-md' href={`/products?categories=${getQueryString()}`}>
+              <Link
+                className='py-1 px-3 mr-5 bg-slate-200 dark:bg-stone-600 rounded-md'
+                href={`/products?categories=${getQueryString()}`}
+                >
                 Apply
               </Link>}
-            {query && <Link className='py-1 px-3 bg-slate-200 rounded-md' href='/products'>Reset</Link>}
+            {query && <Link className='py-1 px-3 bg-slate-200 dark:bg-stone-600 rounded-md' href='/products'>Reset</Link>}
           </div>
         </div>
       }

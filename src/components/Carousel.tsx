@@ -18,7 +18,7 @@ export default function Carousel({ data, style }: { data: ProductType[], style: 
     <Link href={`/products/${item.id}`}>
       <div className='
         p-3 flex flex-col items-center md:grid md:grid-cols-[14rem,_1fr]
-        md:items-start gap-5 md:bg-gradient-to-r from-white cursor-pointer
+        md:items-start gap-5 md:bg-gradient-to-r from-white dark:from-stone-400 cursor-pointer
       '>
         <Image width={100} height={100} src={item.image} alt={item.image} className='h-60 w-56' priority />
         <div>

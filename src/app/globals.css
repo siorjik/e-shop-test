@@ -2,22 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+input, button, img, a {
+  outline: none;
+}
+
 @layer components {
+  body {
+    @apply dark:bg-slate-800
+  }
+
   .cart-btn {
     @apply py-1 px-3 rounded-lg bg-slate-200 cursor-pointer hover:bg-slate-300 transition-all
   }
 
   .green-btn {
-    @apply p-10 py-3 rounded-md bg-green-500 text-slate-50 hover:bg-green-600 transition-all
+    @apply p-10 py-3 rounded-md bg-green-500 dark:bg-teal-700 text-slate-50 hover:bg-green-600 dark:hover:bg-teal-800 transition-all
   }
 
   .client-spinner {
-    @apply !bg-violet-200/[0.5]
+    @apply !bg-violet-200/[0.5] dark:!bg-violet-500/[0.5]
   }
-}
-
-input, button, img, a {
-  outline: none;
 }
 
 .slick-next, .slick-prev {
