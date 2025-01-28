@@ -35,7 +35,10 @@ export default function ProductInfo({ data }: { data: ProductType }) {
           <div className="mt-20 flex justify-around items-center lg:flex-col lg:justify-start lg:mt-0">
             <h2 className='text-2xl font-semibold'>${price}</h2>
             <Button
-              style='px-10 py-3 rounded-lg bg-slate-200 hover:bg-slate-300 transition-all lg:mt-5'
+              style='
+                px-10 py-3 rounded-lg bg-slate-200 dark:bg-slate-500 hover:bg-slate-300
+                dark:hover:bg-slate-600 transition-all lg:mt-5
+              '
               click={() => {
                 setOrder({ products: [...products, data] })
 
