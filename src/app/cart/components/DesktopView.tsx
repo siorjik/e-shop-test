@@ -6,12 +6,12 @@ import { ViewPropsType } from '@/types/CartTypes'
 export default function DesktopView({ order, getCountBtn, getDeleteBtn }: ViewPropsType) {
   const { push } = useRouter()
 
-  const tableHeaderStyle = 'pr-5 pb-1 text-center font-medium text-amber-600'
-  const tableCellStyle = 'pr-5 py-5 text-center bg-yellow-100'
+  const tableHeaderStyle = 'pr-5 pb-1 text-center font-medium text-amber-600 dark:text-amber-300'
+  const tableCellStyle = 'pr-5 py-5 text-center bg-yellow-100 dark:bg-yellow-700'
 
   return (
     <table className='w-full mt-8 table border-separate border-spacing-y-2'>
-      <thead className='sticky top-[60px] bg-slate-50'>
+      <thead className='sticky top-[60px] bg-slate-50 dark:bg-slate-800'>
         <tr>
           <td className={tableHeaderStyle}>Product</td>
           <td className={tableHeaderStyle}>Price</td>
@@ -24,7 +24,7 @@ export default function DesktopView({ order, getCountBtn, getDeleteBtn }: ViewPr
         {
           order.map(({ product, amount }) => (
             <tr key={product.id}>
-              <td className='px-5 py-5 flex flex-col items-center bg-yellow-100 cursor-pointer rounded-s-xl'
+              <td className='px-5 py-5 flex flex-col items-center bg-yellow-100 dark:bg-yellow-700 cursor-pointer rounded-s-xl'
                 onClick={() => push(`/products/${product.id}`)}
               >
                 <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32' />

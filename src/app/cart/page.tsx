@@ -83,14 +83,14 @@ export default function Cart() {
   }
 
   const getCountBtn = (product: ProductType, action: 'plus' | 'minus'): ReactElement => (
-    <Button style={'p-1 bg-pink-300 rounded-full'} click={() => changeAmount(product, action)}>
+    <Button style={'p-1 bg-pink-300 dark:bg-pink-500 rounded-full'} click={() => changeAmount(product, action)}>
       <Image src={action === 'minus' ? minus : plus} alt='counter-btn' height={10} width={10} />
     </Button>
   )
 
   const getDeleteBtn = (product: ProductType): ReactElement => (
     <Button
-      style='px-3 py-2 rounded-lg bg-red-300 text-slate-50 hover:bg-red-400 transition-all'
+      style='px-3 py-2 rounded-lg bg-red-300 dark:bg-red-500 text-slate-50 hover:bg-red-400 dark:hover:bg-red-600 transition-all'
       click={() => setContext({ products: products.filter(item => item.id !== product.id) })}
     ><Image className='w-5 h-5 md:w-12' src={trash} alt='trash' /></Button>
   )
@@ -100,7 +100,9 @@ export default function Cart() {
       <>
         {!!order.length && !filter && <div className='text-center'>
           <Button
-            style='p-10 py-3 rounded-md bg-red-500 text-slate-50 hover:bg-red-600 transition-all'
+            style='
+              p-10 py-3 rounded-md bg-red-500 dark:bg-red-700 text-slate-50 hover:bg-red-600 dark:hover:bg-red-800 transition-all
+            '
             click={() => setContext({ products: [] })}
           >Delete Order</Button>
         </div>}
@@ -117,7 +119,12 @@ export default function Cart() {
                   !!order.length && !filter &&
                   <div className='lg:text-center'>
                     <div className='lg:sticky lg:top-[60px] lg:mt-10'>
-                      <h3 className='my-8 lg:my-2 pt-8 lg:pt-0 font-semibold border-t-4 lg:border-t-0 text-xl text-gray-600'>
+                      <h3
+                        className='
+                          my-8 lg:my-2 pt-8 lg:pt-0 font-semibold border-t-4 lg:border-t-0
+                          text-xl text-gray-600 dark:text-gray-400
+                        '
+                      >
                         Total sum: ${sum}
                       </h3>
                       <div className='flex justify-center'>
