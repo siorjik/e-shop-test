@@ -63,9 +63,11 @@ export default function Layout({ children }: { children: ReactNode }) {
             </aside>
             <div className='max-w-7xl mx-auto relative'>{children}</div>
           </div>
-          <footer className='h-[60px] py-2 px-8 flex items-center bg-sky-200 dark:bg-sky-700'>
-            <div className='w-full m-auto max-w-7xl text-sm'>&copy; {new Date().getFullYear()}</div>
-            <ThemeBtn />
+          <footer className='h-[60px] py-2 px-5 md:px-8 flex items-center bg-sky-200 dark:bg-sky-700'>
+            <div className='w-full m-auto max-w-7xl flex justify-between items-center text-sm'>
+              &copy; {new Date().getFullYear()}
+              <ThemeBtn />
+            </div>
           </footer>
         </main>
       </div>
