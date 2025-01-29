@@ -40,7 +40,7 @@ export default function ThemeBtn() {
       className='border-2 border-slate-700 dark:border-white rounded-md'
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
     >
-      {theme === 'light' ? dark : light}
+      {theme === 'light' || !theme ? dark : light}
     </button>
   )
 }
