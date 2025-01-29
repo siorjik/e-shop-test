@@ -1,9 +1,18 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
 export default function ThemeBtn() {
+  const [mode, setMode] = useState('')
+
   const { theme, setTheme } = useTheme()
+  
+  useEffect(() => {
+    if (!window.localStorage.getItem('theme')) setTheme('light')
+
+    setMode(theme!)
+  }, [theme])
 
   const light = (
     <svg
@@ -34,13 +43,14 @@ export default function ThemeBtn() {
     </svg>
   )
 
-
   return (
-    <button
-      className='border-2 border-slate-700 dark:border-white rounded-md'
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-    >
-      {theme === 'light' || !theme ? dark : light}
-    </button>
+    <>
+      {mode && <button
+        className='border-2 border-slate-700 dark:border-white rounded-md'
+        onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} 
+      > 
+        {mode === 'light' ? dark : light}
+      </button>}
+    </>
   )
 }
