@@ -8,7 +8,7 @@ import { ProductContextProvider } from './ProductContext'
 
 export default function RootProvider({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider attribute='class' defaultTheme='light'>
+    <ThemeProvider attribute='class' defaultTheme='light' enableSystem={false}>
       <CartContextProvider>
         <ProductContextProvider>
           {children}
