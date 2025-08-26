@@ -10,7 +10,7 @@ export default function MobileView({ order, getCountBtn, getDeleteBtn }: ViewPro
         order.map(({ product, amount }, index) => (
           <div key={index + Date.now()} className="mb-3 p-5 flex flex-col items-center rounded-lg bg-cyan-100 dark:bg-cyan-700">
             <Link className='flex flex-col items-center' href={`/products/${product.id}`}>
-              <Image width={100} height={100} src={product.image} alt={product.image} className='h-32 w-32 mb-5' />
+              <Image width={100} height={100} src={product.image} alt={product.image} priority className='h-32 w-32 mb-5' />
               <h3 className='text-center font-semibold'>{product.title}</h3>
             </Link>
             <div className="flex mt-5 mb-1">
